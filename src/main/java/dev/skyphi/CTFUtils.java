@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
+import dev.skyphi.Listeners.DeathListener;
 import dev.skyphi.Listeners.FlagListener;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
@@ -19,6 +20,7 @@ public class CTFUtils {
                                         +ChatColor.AQUA+" ";
 
     public static FlagListener FLAG_LISTENER;
+    public static DeathListener DEATH_LISTENER;
     
     public static CTFPlayer getCTFPlayer(Player player) {
         CTFPlayer ctfp = SootCTF.TEAM1.getCtfPlayer(player);

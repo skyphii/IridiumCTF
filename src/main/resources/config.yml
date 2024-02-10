@@ -10,6 +10,9 @@ teams:
 # Win condition
 flags_to_win: 5
 
+# Time before a player respawns, in seconds. Does not support decimals.
+respawn_timer: 5
+
 # The block to be used as the flag. Must be a valid material, or it will default to IRON_BLOCK.
 flag_type: GOLD_BLOCK
 

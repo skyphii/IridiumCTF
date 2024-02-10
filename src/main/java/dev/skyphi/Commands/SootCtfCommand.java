@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
+import dev.skyphi.Listeners.DeathListener;
 import dev.skyphi.Listeners.FlagListener;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
@@ -27,7 +28,6 @@ public class SootCtfCommand implements CommandExecutor, Listener {
 
     private Player flagSetter;
     private int setFlag;
-    
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
@@ -46,10 +46,13 @@ public class SootCtfCommand implements CommandExecutor, Listener {
             if(args[0].equalsIgnoreCase("start")) {
                 // start game
                 if(CTFUtils.FLAG_LISTENER != null) HandlerList.unregisterAll(CTFUtils.FLAG_LISTENER);
+                if(CTFUtils.DEATH_LISTENER != null) HandlerList.unregisterAll(CTFUtils.DEATH_LISTENER);
                 CTFUtils.FLAG_LISTENER = new FlagListener();
+                CTFUtils.DEATH_LISTENER = new DeathListener();
                 CTFUtils.initTeams();
                 makeTeams();
                 SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.FLAG_LISTENER, SootCTF.INSTANCE);
+                SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.DEATH_LISTENER, SootCTF.INSTANCE);
                 SootCTF.TEAM1.teleport();
                 SootCTF.TEAM2.teleport();
                 CTFUtils.broadcast("Game started!");

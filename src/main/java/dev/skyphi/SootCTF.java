@@ -15,7 +15,7 @@ public class SootCTF extends JavaPlugin {
     public static Material FLAG_TYPE = Material.IRON_BLOCK;
 
     public static boolean PAIR_NEARBY_PLAYERS, STRICT_PAIRING;
-    public static int FLAGS_TO_WIN = 5;
+    public static int FLAGS_TO_WIN = 5, RESPAWN_TIMER = 5;
 
     @Override
     public void onEnable() {
@@ -44,6 +44,7 @@ public class SootCTF extends JavaPlugin {
         PAIR_NEARBY_PLAYERS = config.getBoolean("pair_nearby_players");
         STRICT_PAIRING = config.getBoolean("strict_pairing");
         FLAGS_TO_WIN = config.getInt("flags_to_win");
+        RESPAWN_TIMER = config.getInt("respawn_timer");
     }
     
 }
