@@ -1,0 +1,19 @@
+# Team Information
+teams:
+  one:
+    name: "Team Blue"
+    flag: null
+  two:
+    name: "Team Red"
+    flag: null
+
+# The block to be used as the flag. Must be a valid material, or it will default to IRON_BLOCK.
+flag_type: GOLD_BLOCK
+
+# Pair players together who are standing very close to each other when making teams. (limited to groups of 2)
+pair_nearby_players: true
+
+# Force pairs to stick together, regardless of team imbalance.
+# If true, max imbalance is 2. If false, max imbalance is 1. (I think)
+# If pair_nearby_players is false, this won't do anything.
+strict_pairing: false
