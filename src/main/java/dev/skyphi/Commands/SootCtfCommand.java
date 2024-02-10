@@ -27,7 +27,7 @@ public class SootCtfCommand implements CommandExecutor, Listener {
 
     private Player flagSetter;
     private int setFlag;
-    private FlagListener flagListener;
+    
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
@@ -45,16 +45,17 @@ public class SootCtfCommand implements CommandExecutor, Listener {
         if(args.length == 1) {
             if(args[0].equalsIgnoreCase("start")) {
                 // start game
-                if(flagListener != null) HandlerList.unregisterAll(flagListener);
-                flagListener = new FlagListener();
+                if(CTFUtils.FLAG_LISTENER != null) HandlerList.unregisterAll(CTFUtils.FLAG_LISTENER);
+                CTFUtils.FLAG_LISTENER = new FlagListener();
                 makeTeams();
-                SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(flagListener, SootCTF.INSTANCE);
+                SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.FLAG_LISTENER, SootCTF.INSTANCE);
+                SootCTF.TEAM1.teleport();
+                SootCTF.TEAM2.teleport();
                 CTFUtils.broadcast("Game started!");
             }else if(args[0].equalsIgnoreCase("stop")) {
                 // stop game
+                CTFUtils.stop();
                 CTFUtils.broadcast("Game stopped!");
-                HandlerList.unregisterAll(flagListener);
-                flagListener = null;
             }
 
             return true;

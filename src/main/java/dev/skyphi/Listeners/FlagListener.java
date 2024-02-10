@@ -45,10 +45,8 @@ public class FlagListener implements Listener {
             if(block.getLocation().equals(teamFlag.getLocation())) {
                 enemyFlag.setType(SootCTF.FLAG_TYPE);
                 ctfp.setFlag(false);
-                team.addPoint();
+                team.addPoint(ctfp);
 
-                // display score to players
-                CTFUtils.showScore(ctfp);
                 // play sounds
                 team.playSound(Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                 enemyTeam.playSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 1);

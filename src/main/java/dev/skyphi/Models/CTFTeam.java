@@ -4,9 +4,13 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+
+import dev.skyphi.CTFUtils;
+import dev.skyphi.SootCTF;
 
 public class CTFTeam {
     
@@ -36,7 +40,16 @@ public class CTFTeam {
     public int getPlayerCount() { return playerList.size(); }
 
     public int getScore() { return score; }
-    public void addPoint() { score++; }
+    public void addPoint(CTFPlayer flagCarrier) {
+        if(++score == SootCTF.FLAGS_TO_WIN) {
+            CTFUtils.announceWinner(this);
+            CTFUtils.teleportTeamsToWorldSpawn();
+            CTFUtils.stop();
+        }else {
+            CTFUtils.showScore(flagCarrier);
+            teleport();
+        }
+    }
 
     public Block getFlag() { return flag; }
     public void setFlag(Block flagBlock) { this.flag = flagBlock; }
@@ -65,16 +78,37 @@ public class CTFTeam {
     }
 
     public void notifyPlayers() {
-        ChatColor teamColour = ChatColor.GRAY;
-        String n = name.toLowerCase();
-        if(n.contains("blue")) teamColour = ChatColor.BLUE;
-        else if(n.contains("red")) teamColour = ChatColor.RED;
-        else if(n.contains("yellow")) teamColour = ChatColor.YELLOW;
-        else if(n.contains("purple")) teamColour = ChatColor.LIGHT_PURPLE;
-        else if(n.contains("green")) teamColour = ChatColor.GREEN;
+        ChatColor teamColour = CTFUtils.getTeamChatColour(this);
 
         for(CTFPlayer ctfp : playerList.values()) {
             ctfp.getPlayer().sendMessage(ChatColor.GOLD + "You are on " + teamColour + ChatColor.BOLD + name + "!");
+        }
+    }
+
+    public void teleport() {
+        Location flagLoc = flag.getLocation().clone();
+        int x = -4;
+        int z = -4;
+        for(CTFPlayer ctfp : playerList.values()) {
+            flagLoc.add(x+0.5, 0, z+0.5);
+            ctfp.getPlayer().teleport(flagLoc);
+
+            x++;
+            if(x > 4) {
+                x = -4;
+                z++;
+            }
+            if(z > 4) {
+                x = -4;
+                z = -4;
+            }
+        }
+    }
+
+    public void teleportWorldSpawn() {
+        for(CTFPlayer ctfp : playerList.values()) {
+            Player player = ctfp.getPlayer();
+            player.teleport(player.getWorld().getSpawnLocation().add(0.5, 0, 0.5));
         }
     }
 
