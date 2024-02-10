@@ -1,6 +1,9 @@
 package dev.skyphi;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
@@ -68,6 +71,18 @@ public class CTFUtils {
     public static void stop() {
         HandlerList.unregisterAll(FLAG_LISTENER);
         FLAG_LISTENER = null;
+    }
+
+    public static void initTeams() {
+        FileConfiguration config = SootCTF.INSTANCE.getConfig();
+
+        Location loc1 = config.getLocation("teams.one.flag");
+        Block block1 = loc1 != null ? loc1.getBlock() : null;
+        SootCTF.TEAM1 = new CTFTeam(config.getString("teams.one.name"), block1);
+
+        Location loc2 = config.getLocation("teams.two.flag");
+        Block block2 = loc2 != null ? loc2.getBlock() : null;
+        SootCTF.TEAM2 = new CTFTeam(config.getString("teams.two.name"), block2);
     }
 
 }

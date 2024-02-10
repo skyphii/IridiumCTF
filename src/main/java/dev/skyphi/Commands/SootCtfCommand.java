@@ -47,6 +47,7 @@ public class SootCtfCommand implements CommandExecutor, Listener {
                 // start game
                 if(CTFUtils.FLAG_LISTENER != null) HandlerList.unregisterAll(CTFUtils.FLAG_LISTENER);
                 CTFUtils.FLAG_LISTENER = new FlagListener();
+                CTFUtils.initTeams();
                 makeTeams();
                 SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.FLAG_LISTENER, SootCTF.INSTANCE);
                 SootCTF.TEAM1.teleport();

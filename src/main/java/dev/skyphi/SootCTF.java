@@ -1,8 +1,6 @@
 package dev.skyphi;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,14 +22,6 @@ public class SootCTF extends JavaPlugin {
         INSTANCE = this;
 
         initConfig();
-
-        Location loc1 = getConfig().getLocation("teams.one.flag");
-        Block block1 = loc1 != null ? loc1.getBlock() : null;
-        TEAM1 = new CTFTeam(getConfig().getString("teams.one.name"), block1);
-
-        Location loc2 = getConfig().getLocation("teams.two.flag");
-        Block block2 = loc2 != null ? loc2.getBlock() : null;
-        TEAM2 = new CTFTeam(getConfig().getString("teams.two.name"), block2);
 
         this.getCommand("sootctf").setExecutor(new SootCtfCommand());
         this.getCommand("score").setExecutor(new ScoreCommand());
