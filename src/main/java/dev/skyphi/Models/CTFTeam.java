@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
@@ -18,6 +19,7 @@ public class CTFTeam {
     private Block flag;
     private int score;
     private String name;
+    private Team mcTeam;
 
     public CTFTeam(String name, Block flag) {
         this.name = name;
@@ -56,6 +58,9 @@ public class CTFTeam {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public Team getMcTeam() { return mcTeam; }
+    public void setMcTeam(Team mcTeam) { this.mcTeam = mcTeam; }
 
     // UTILITY
 
