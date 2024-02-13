@@ -22,11 +22,12 @@ import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.Pickups.JumpBoost;
 
-public class SpawnerManager implements Listener {
+public class PickupManager implements Listener {
     
     private static final int INITIAL_DELAY = 0, SPAWN_PERIOD = 20;
     private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
         JumpBoost.class
+        // Barricade.class // currently broken, don't use
     );
 
     private BukkitRunnable spawnRunnable;
@@ -34,7 +35,7 @@ public class SpawnerManager implements Listener {
     private List<ItemSpawner> spawners = new ArrayList<>();
     private List<Pickup> spawnedPickups = new ArrayList<>();
 
-    public SpawnerManager() {}
+    public PickupManager() {}
 
     public void startSpawning() {
         if(spawnRunnable != null) {

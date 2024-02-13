@@ -2,7 +2,6 @@ package dev.skyphi.Models;
 
 import java.util.Arrays;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +16,6 @@ public abstract class Pickup {
     protected Item spawnedItem;
 
     protected void init() {
-        itemStack = new ItemStack(Material.FEATHER);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(name);
         itemMeta.setLore(Arrays.asList(description));

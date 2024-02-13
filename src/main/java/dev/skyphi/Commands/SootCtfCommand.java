@@ -56,11 +56,11 @@ public class SootCtfCommand implements CommandExecutor, Listener {
                 SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.DEATH_LISTENER, SootCTF.INSTANCE);
                 SootCTF.TEAM1.teleport();
                 SootCTF.TEAM2.teleport();
-                SootCTF.SPAWNER_MANAGER.startSpawning();
+                SootCTF.PICKUP_MANAGER.startSpawning();
                 CTFUtils.broadcast("Game started!");
             }else if(args[0].equalsIgnoreCase("stop")) {
                 // stop game
-                SootCTF.SPAWNER_MANAGER.stopSpawning();
+                SootCTF.PICKUP_MANAGER.stopSpawning();
                 CTFUtils.stop();
                 CTFUtils.broadcast("Game stopped!");
             }else if(args[0].equalsIgnoreCase("spawner")) {
@@ -161,7 +161,7 @@ public class SootCtfCommand implements CommandExecutor, Listener {
 
         if(setFlag == -1) {
             // set item spawner
-            SootCTF.SPAWNER_MANAGER.addSpawner(new ItemSpawner(block));
+            SootCTF.PICKUP_MANAGER.addSpawner(new ItemSpawner(block));
             flagSetter.sendMessage(ChatColor.AQUA + "Item spawner set!");
         }else {
             String node = "teams." + (setFlag == 1 ? "one" : "two") + ".flag";

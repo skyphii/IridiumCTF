@@ -1,8 +1,10 @@
 package dev.skyphi.Models.Pickups;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import dev.skyphi.Models.Pickup;
@@ -14,6 +16,7 @@ public class JumpBoost extends Pickup {
     public JumpBoost() {
         name = ChatColor.AQUA+""+ChatColor.BOLD+"Jump!";
         description = ChatColor.AQUA+"Right click to jump high! You will not take fall damage.";
+        itemStack = new ItemStack(Material.FEATHER);
         init();
     }
 
