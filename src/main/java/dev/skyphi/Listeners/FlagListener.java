@@ -22,7 +22,7 @@ public class FlagListener implements Listener {
 
         CTFPlayer ctfp = CTFUtils.getCTFPlayer(event.getPlayer());
         CTFTeam team = ctfp.getTeam();
-        CTFTeam enemyTeam = ctfp.getTeam().equals(SootCTF.TEAM1) ? SootCTF.TEAM2 : SootCTF.TEAM1;
+        CTFTeam enemyTeam = ctfp.getEnemyTeam();
         Block enemyFlag = enemyTeam.getFlag();
 
         if(!ctfp.hasFlag()) {   // no flag - check if player clicked enemy flag

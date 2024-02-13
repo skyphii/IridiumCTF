@@ -33,6 +33,11 @@ public class DeathListener implements Listener {
         player.getWorld().spawnParticle(Particle.SMOKE_LARGE, player.getLocation().add(0, 1, 0), 100);
         player.sendTitle(ChatColor.RED+""+ChatColor.BOLD+"You died!", ChatColor.GRAY+"You will respawn shortly...", -1, -1, -1);
 
+        // replace flag
+        if(ctfp.hasFlag()) {
+            ctfp.getEnemyTeam().getFlag().setType(SootCTF.FLAG_TYPE);
+        }
+
         new BukkitRunnable() {
             @Override
             public void run() {

@@ -47,6 +47,7 @@ public class CTFPlayer {
 
     public UUID getUniqueId() { return player.getUniqueId(); }
 
+    public CTFTeam getEnemyTeam() { return SootCTF.TEAM1.equals(team)?SootCTF.TEAM2:SootCTF.TEAM1; }
     public CTFTeam getTeam() { return team; }
     public void setTeam(CTFTeam team) { this.team = team; }
 
