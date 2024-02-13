@@ -9,7 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 import dev.skyphi.Listeners.DeathListener;
 import dev.skyphi.Listeners.FlagListener;
@@ -26,16 +26,7 @@ public class CTFUtils {
 
     public static FlagListener FLAG_LISTENER;
     public static DeathListener DEATH_LISTENER;
-
-    public static ScoreboardManager BOARD_MANAGER = Bukkit.getScoreboardManager();
-    public static Scoreboard board = BOARD_MANAGER.getNewScoreboard();
-
-    public static void init() {
-        board.registerNewTeam("1");
-        // board.getTeam("1").setColor();
-
-        board.registerNewTeam("2");
-    }
+    public static Scoreboard SCOREBOARD = Bukkit.getScoreboardManager().getMainScoreboard();
     
     public static CTFPlayer getCTFPlayer(Player player) {
         CTFPlayer ctfp = SootCTF.TEAM1.getCtfPlayer(player);
@@ -99,6 +90,9 @@ public class CTFUtils {
     public static void stop() {
         HandlerList.unregisterAll(FLAG_LISTENER);
         FLAG_LISTENER = null;
+
+        HandlerList.unregisterAll(DEATH_LISTENER);
+        DEATH_LISTENER = null;
     }
 
     public static void initTeams() {
@@ -107,12 +101,19 @@ public class CTFUtils {
         Location loc1 = config.getLocation("teams.one.flag");
         Block block1 = loc1 != null ? loc1.getBlock() : null;
         SootCTF.TEAM1 = new CTFTeam(config.getString("teams.one.name"), block1);
-        SootCTF.TEAM1.setMcTeam(board.getTeam("1"));
 
         Location loc2 = config.getLocation("teams.two.flag");
         Block block2 = loc2 != null ? loc2.getBlock() : null;
         SootCTF.TEAM2 = new CTFTeam(config.getString("teams.two.name"), block2);
-        SootCTF.TEAM2.setMcTeam(board.getTeam("2"));
+
+        // Setup scoreboard teams
+        Team scoreboardTeam1 = SCOREBOARD.registerNewTeam(SootCTF.TEAM1.getName());
+        SootCTF.TEAM1.setMcTeam(scoreboardTeam1);
+        scoreboardTeam1.setColor(getTeamChatColour(SootCTF.TEAM1));
+
+        Team scoreboardTeam2 = SCOREBOARD.registerNewTeam(SootCTF.TEAM2.getName());
+        SootCTF.TEAM2.setMcTeam(scoreboardTeam2);
+        scoreboardTeam2.setColor(getTeamChatColour(SootCTF.TEAM2));
     }
 
 }

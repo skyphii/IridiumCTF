@@ -36,6 +36,8 @@ public class CTFPlayer {
     public CTFPlayer(Player player, CTFTeam team) {
         this.player = player;
         this.team = team;
+
+        team.getMcTeam().addEntry(getPlayerName());
     }
 
     // GETTERS/SETTERS
