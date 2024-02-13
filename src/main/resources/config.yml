@@ -23,3 +23,6 @@ pair_nearby_players: true
 # If true, max imbalance is 2. If false, max imbalance is 1. (I think)
 # If pair_nearby_players is false, this won't do anything.
 strict_pairing: false
+
+# Item Spawners
+item_spawners: null

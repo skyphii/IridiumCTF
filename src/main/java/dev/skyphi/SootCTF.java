@@ -7,11 +7,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import dev.skyphi.Commands.ScoreCommand;
 import dev.skyphi.Commands.SootCtfCommand;
 import dev.skyphi.Models.CTFTeam;
+import dev.skyphi.Models.SpawnerManager;
 
 public class SootCTF extends JavaPlugin {
 
     public static SootCTF INSTANCE;
     public static CTFTeam TEAM1, TEAM2;
+    public static SpawnerManager SPAWNER_MANAGER = new SpawnerManager();
     public static Material FLAG_TYPE = Material.IRON_BLOCK;
 
     public static boolean PAIR_NEARBY_PLAYERS, STRICT_PAIRING;
@@ -29,7 +31,7 @@ public class SootCTF extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        
+        CTFUtils.stop();
     }
 
     private void initConfig() {
@@ -41,6 +43,10 @@ public class SootCTF extends JavaPlugin {
         Material configMat = Material.getMaterial(config.getString("flag_type"));
         if(configMat != null) FLAG_TYPE = configMat;
 
+        // item spawners
+        SPAWNER_MANAGER.loadSpawners();
+
+        // configurable options
         PAIR_NEARBY_PLAYERS = config.getBoolean("pair_nearby_players");
         STRICT_PAIRING = config.getBoolean("strict_pairing");
         FLAGS_TO_WIN = config.getInt("flags_to_win");

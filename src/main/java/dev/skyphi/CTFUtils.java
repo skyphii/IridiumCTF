@@ -93,6 +93,11 @@ public class CTFUtils {
 
         HandlerList.unregisterAll(DEATH_LISTENER);
         DEATH_LISTENER = null;
+
+        // unregister scoreboard teams
+        for(Team team : CTFUtils.SCOREBOARD.getTeams()) {
+            team.unregister();
+        }
     }
 
     public static void initTeams() {
