@@ -21,6 +21,8 @@ public class FlagListener implements Listener {
         if(block == null) return;
 
         CTFPlayer ctfp = CTFUtils.getCTFPlayer(event.getPlayer());
+        if(ctfp == null) return;
+        
         CTFTeam team = ctfp.getTeam();
         CTFTeam enemyTeam = ctfp.getEnemyTeam();
         Block enemyFlag = enemyTeam.getFlag();

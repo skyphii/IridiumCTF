@@ -97,6 +97,8 @@ public class CTFTeam {
         for(CTFPlayer ctfp : playerList.values()) {
             flagLoc.add(x+0.5, 0, z+0.5);
             ctfp.getPlayer().teleport(flagLoc);
+            ctfp.getPlayer().setHealth(20);
+            ctfp.getPlayer().setSaturation(20);
 
             x++;
             if(x > 4) {

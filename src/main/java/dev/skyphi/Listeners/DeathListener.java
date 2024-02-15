@@ -41,6 +41,8 @@ public class DeathListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
+                player.setHealth(20);
+                player.setSaturation(20);
                 player.teleport(ctfp.getTeam().getFlag().getLocation());
                 player.setGameMode(gm);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
