@@ -9,9 +9,9 @@ import org.bukkit.potion.PotionType;
 
 import dev.skyphi.Models.Pickups.Pickup;
 
-public class Arrows extends Pickup {
+public class SlownessArrows extends Pickup {
     
-    public Arrows() {
+    public SlownessArrows() {
         name = ChatColor.GRAY+""+ChatColor.BOLD+"Slowness Arrow";
         description = ChatColor.GOLD+"Pew pew. Look how slow they are!";
         itemStack = new ItemStack(Material.TIPPED_ARROW, 4);

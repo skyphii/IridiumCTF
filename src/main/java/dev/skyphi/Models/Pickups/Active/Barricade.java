@@ -3,6 +3,7 @@ package dev.skyphi.Models.Pickups.Active;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -17,7 +18,6 @@ import org.bukkit.util.Vector;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.Pair;
 import dev.skyphi.Models.Pickups.ActivePickup;
-import net.md_5.bungee.api.ChatColor;
 
 public class Barricade extends ActivePickup {
 

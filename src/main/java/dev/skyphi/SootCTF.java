@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import dev.skyphi.Commands.ScoreCommand;
 import dev.skyphi.Commands.SootCtfCommand;
 import dev.skyphi.Listeners.FallListener;
+import dev.skyphi.Listeners.FreezeballListener;
 import dev.skyphi.Models.CTFTeam;
 import dev.skyphi.Models.Pickups.PickupManager;
 
@@ -31,6 +32,7 @@ public class SootCTF extends JavaPlugin {
         this.getCommand("score").setExecutor(new ScoreCommand());
 
         SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(new FallListener(), SootCTF.INSTANCE);
+        SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(new FreezeballListener(), SootCTF.INSTANCE);
     }
 
     @Override
