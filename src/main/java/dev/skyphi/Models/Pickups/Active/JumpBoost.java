@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import dev.skyphi.SootCTF;
+import dev.skyphi.Listeners.FallListener;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
 public class JumpBoost extends ActivePickup {
@@ -25,6 +26,7 @@ public class JumpBoost extends ActivePickup {
 
     @Override
     public void activate() {
+        FallListener.addPlayer(owner);
         owner.setVelocity(JUMP);
         owner.getWorld().playSound(owner.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1);
         owner.getWorld().spawnParticle(Particle.CLOUD, owner.getLocation(), 10);
