@@ -31,7 +31,8 @@ import dev.skyphi.Models.Pickups.Simple.GoldenArrow;
 
 public class PickupManager implements Listener {
     
-    private static final int INITIAL_DELAY = 0, SPAWN_PERIOD = 20;
+    private static final int INITIAL_DELAY = 0; // in seconds
+    private static int SPAWN_PERIOD = 10;       // in seconds
     private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
         JumpBoost.class,
         GoldenApple.class, SlownessArrows.class, Freezeball.class, GoldenArrow.class
@@ -57,16 +58,17 @@ public class PickupManager implements Listener {
         spawnRunnable = new BukkitRunnable() {
             @Override
             public void run() {
-                ItemSpawner spawner = spawners.get((int)(Math.random() * spawners.size()));
-                Pickup pickup = getRandomPickup();
-                if(pickup == null) {
-                    SootCTF.INSTANCE.getLogger().log(Level.WARNING, "getRandomPickup() returned null in SpawnerManager.java");
-                    return;
-                }
-                
-                spawnedPickups.add(pickup);
-                Item spawnedItem = spawner.spawnItem(pickup.getItemStack());
-                pickup.setSpawnedItem(spawnedItem);
+                spawners.forEach(spawner -> {
+                    Pickup pickup = getRandomPickup();
+                    if(pickup == null) {
+                        SootCTF.INSTANCE.getLogger().log(Level.WARNING, "getRandomPickup() returned null in SpawnerManager.java");
+                        return;
+                    }
+                    
+                    spawnedPickups.add(pickup);
+                    Item spawnedItem = spawner.spawnItem(pickup.getItemStack());
+                    pickup.setSpawnedItem(spawnedItem);
+                });
             }
         };
         spawnRunnable.runTaskTimer(SootCTF.INSTANCE, 20*INITIAL_DELAY, 20*SPAWN_PERIOD);
