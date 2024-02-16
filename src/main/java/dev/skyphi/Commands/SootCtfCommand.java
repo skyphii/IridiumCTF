@@ -58,6 +58,7 @@ public class SootCtfCommand implements CommandExecutor {
             }else if(args[0].equalsIgnoreCase("stop")) {
                 // stop game
                 SootCTF.PICKUP_MANAGER.stopSpawning();
+                CTFUtils.teleportTeamsToWorldSpawn();
                 CTFUtils.stop();
                 CTFUtils.broadcast("Game stopped!");
             }else if(args[0].equalsIgnoreCase("spawner")) {
