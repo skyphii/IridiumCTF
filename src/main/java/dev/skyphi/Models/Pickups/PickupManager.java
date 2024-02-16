@@ -42,6 +42,10 @@ public class PickupManager implements Listener {
     public PickupManager() {}
 
     public void startSpawning() {
+        if(spawners.size() == 0) {
+            SootCTF.INSTANCE.getLogger().log(Level.WARNING, "No item spawners set! There will be no item spawning for this game.");
+            return;
+        }
         if(spawnRunnable != null) {
             spawnRunnable.cancel();
         }
