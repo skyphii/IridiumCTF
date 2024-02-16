@@ -88,6 +88,33 @@ public class SootCtfCommand implements CommandExecutor {
             new SetupListener(player, (team == 1)?SetupType.FLAG_1 : SetupType.FLAG_2);
 
             player.sendMessage(ChatColor.AQUA + "Click the flag block for team " + team + "'s flag.");
+        }else if(args[0].equalsIgnoreCase("swap")) {
+            Player playerToSwap = SootCTF.INSTANCE.getServer().getPlayer(args[1]);
+            if(playerToSwap == null) {
+                player.sendMessage(ChatColor.RED + "Player not found.");
+                return true;
+            }
+            CTFPlayer ctfp = CTFUtils.getCTFPlayer(playerToSwap);
+            if(ctfp == null) {
+                player.sendMessage(ChatColor.RED + "Player is not on a team.");
+                return true;
+            }
+
+            // replace flag if the swapped player is holding it (c'mon mods, really?)
+            if(ctfp.hasFlag()) {
+                ctfp.setFlag(false);
+                ctfp.getEnemyTeam().getFlag().setType(SootCTF.FLAG_TYPE);
+                ctfp.getTeam().announce(ChatColor.RED, "The enemy flag was returned to their base!");
+                ctfp.getEnemyTeam().announce(ChatColor.GREEN, "Your flag was returned to base!");
+            }
+
+            CTFTeam newTeam = ctfp.getEnemyTeam();
+            ctfp.getTeam().removePlayer(playerToSwap);
+            CTFPlayer newCtfp = new CTFPlayer(playerToSwap, newTeam);
+            newTeam.addPlayer(newCtfp);
+            playerToSwap.teleport(playerToSwap.getWorld().getSpawnLocation());
+
+            player.sendMessage("Player's team swapped!");
         }
 
         return true;
