@@ -144,10 +144,12 @@ public class CTFUtils {
         Team scoreboardTeam1 = SCOREBOARD.registerNewTeam(SootCTF.TEAM1.getName());
         SootCTF.TEAM1.setMcTeam(scoreboardTeam1);
         scoreboardTeam1.setColor(getTeamChatColour(SootCTF.TEAM1));
+        scoreboardTeam1.setAllowFriendlyFire(false);
 
         Team scoreboardTeam2 = SCOREBOARD.registerNewTeam(SootCTF.TEAM2.getName());
         SootCTF.TEAM2.setMcTeam(scoreboardTeam2);
         scoreboardTeam2.setColor(getTeamChatColour(SootCTF.TEAM2));
+        scoreboardTeam2.setAllowFriendlyFire(false);
     }
 
 }
