@@ -98,6 +98,8 @@ public class CTFUtils {
             DEATH_LISTENER = null;
         }
 
+        SootCTF.PICKUP_MANAGER.stopSpawning();
+
         // unregister scoreboard teams
         for(Team team : CTFUtils.SCOREBOARD.getTeams()) {
             team.unregister();
