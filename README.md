@@ -20,3 +20,4 @@ A new SootMC event plugin for **Capture the Flag**!
 
 # Known Issues
 - After using jump boost feather, if you land high enough to not take fall damage, the next time you *should* take fall damage, you won't.
+- Pickups (the special items) are not removed when a player dies.
