@@ -9,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
 import dev.skyphi.CTFUtils;
@@ -75,6 +76,16 @@ public class CTFTeam {
         for(CTFPlayer ctfp : playerList.values()) {
             ctfp.getPlayer().sendTitle(titleColour+title, subtitleColour+subtitle, -1, -1, -1);
         }
+
+        // clear titles on bedrock clients
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(CTFPlayer ctfp : playerList.values()) {
+                    ctfp.getPlayer().sendTitle("", "", -1, -1, -1);
+                }
+            }
+        }.runTaskLater(SootCTF.INSTANCE, 80);
     }
 
     public void playSound(Sound sound, float volume, float pitch) {

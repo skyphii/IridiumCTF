@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -61,6 +62,16 @@ public class CTFUtils {
             player.sendTitle(title, subtitle, -1, -1, -1);
             player.sendMessage(getTeamChatColour(winner)+""+ChatColor.BOLD + SootCTF.TEAM1.getName() + " wins!");
         }
+        
+        // clear titles on bedrock clients
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(Player player : SootCTF.INSTANCE.getServer().getOnlinePlayers()) {
+                    player.sendTitle("", "", -1, -1, -1);
+                }
+            }
+        }.runTaskLater(SootCTF.INSTANCE, 80);
     }
 
     public static ChatColor getTeamChatColour(CTFTeam team) {
