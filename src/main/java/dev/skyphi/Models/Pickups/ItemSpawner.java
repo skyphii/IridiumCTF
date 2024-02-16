@@ -1,4 +1,4 @@
-package dev.skyphi.Models;
+package dev.skyphi.Models.Pickups;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;

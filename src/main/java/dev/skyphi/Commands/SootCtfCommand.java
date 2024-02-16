@@ -6,29 +6,23 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Listeners.DeathListener;
 import dev.skyphi.Listeners.FlagListener;
+import dev.skyphi.Listeners.SetupListener;
+import dev.skyphi.Listeners.SetupListener.SetupType;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
-import dev.skyphi.Models.ItemSpawner;
 import dev.skyphi.Models.Pair;
 
-public class SootCtfCommand implements CommandExecutor, Listener {
-
-    private Player flagSetter;
-    private int setFlag;
+public class SootCtfCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
@@ -46,14 +40,17 @@ public class SootCtfCommand implements CommandExecutor, Listener {
         if(args.length == 1) {
             if(args[0].equalsIgnoreCase("start")) {
                 // start game
+                CTFUtils.stop();
+                CTFUtils.initTeams();
+                makeTeams();
+
                 if(CTFUtils.FLAG_LISTENER != null) HandlerList.unregisterAll(CTFUtils.FLAG_LISTENER);
                 if(CTFUtils.DEATH_LISTENER != null) HandlerList.unregisterAll(CTFUtils.DEATH_LISTENER);
                 CTFUtils.FLAG_LISTENER = new FlagListener();
                 CTFUtils.DEATH_LISTENER = new DeathListener();
-                CTFUtils.initTeams();
-                makeTeams();
                 SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.FLAG_LISTENER, SootCTF.INSTANCE);
                 SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.DEATH_LISTENER, SootCTF.INSTANCE);
+
                 SootCTF.TEAM1.teleport();
                 SootCTF.TEAM2.teleport();
                 SootCTF.PICKUP_MANAGER.startSpawning();
@@ -65,9 +62,8 @@ public class SootCtfCommand implements CommandExecutor, Listener {
                 CTFUtils.broadcast("Game stopped!");
             }else if(args[0].equalsIgnoreCase("spawner")) {
                 // setup item spawner
-                setFlag = -1;
-                flagSetter = player;
-                SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(this, SootCTF.INSTANCE);
+                new SetupListener(player, SetupType.SPAWNER);
+                player.sendMessage(ChatColor.AQUA + "Click a block to set a new item spawner.");
             }
 
             return true;
@@ -89,11 +85,9 @@ public class SootCtfCommand implements CommandExecutor, Listener {
             if(team > 2) team = 2;
             else if(team < 1) team = 1;
 
-            setFlag = team;
-            flagSetter = player;
-            SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(this, SootCTF.INSTANCE);
+            new SetupListener(player, (team == 1)?SetupType.FLAG_1 : SetupType.FLAG_2);
 
-            player.sendMessage(ChatColor.AQUA + "Left click the flag block for team " + team + "'s flag.");
+            player.sendMessage(ChatColor.AQUA + "Click the flag block for team " + team + "'s flag.");
         }
 
         return true;
@@ -151,32 +145,6 @@ public class SootCtfCommand implements CommandExecutor, Listener {
 
         team1.notifyPlayers();
         team2.notifyPlayers();
-    }
-
-    @EventHandler
-    public void on(PlayerInteractEvent event) {
-        Block block = event.getClickedBlock();
-        if(block == null || setFlag == 0 || flagSetter == null || !flagSetter.equals(event.getPlayer())) return;
-        event.setCancelled(true);
-
-        if(setFlag == -1) {
-            // set item spawner
-            SootCTF.PICKUP_MANAGER.addSpawner(new ItemSpawner(block));
-            flagSetter.sendMessage(ChatColor.AQUA + "Item spawner set!");
-        }else {
-            String node = "teams." + (setFlag == 1 ? "one" : "two") + ".flag";
-            SootCTF.INSTANCE.getConfig().set(node, block.getLocation());
-            SootCTF.INSTANCE.saveConfig();
-
-            // set flag block on appropriate team
-            (setFlag == 1 ? SootCTF.TEAM1 : SootCTF.TEAM2).setFlag(block);
-
-            flagSetter.sendMessage(ChatColor.AQUA + "Flag set for team " + setFlag + "!");
-        }
-
-        HandlerList.unregisterAll(this);
-        setFlag = 0;
-        flagSetter = null;
     }
 
 }

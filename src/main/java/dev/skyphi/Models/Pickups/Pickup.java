@@ -1,4 +1,4 @@
-package dev.skyphi.Models;
+package dev.skyphi.Models.Pickups;
 
 import java.util.Arrays;
 
@@ -21,8 +21,6 @@ public abstract class Pickup {
         itemMeta.setLore(Arrays.asList(description));
         itemStack.setItemMeta(itemMeta);
     }
-
-    public abstract void activate();
 
     // GETTERS/SETTERS
 

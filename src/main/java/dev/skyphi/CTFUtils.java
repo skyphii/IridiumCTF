@@ -88,11 +88,15 @@ public class CTFUtils {
     }
 
     public static void stop() {
-        HandlerList.unregisterAll(FLAG_LISTENER);
-        FLAG_LISTENER = null;
+        if(FLAG_LISTENER != null) {
+            HandlerList.unregisterAll(FLAG_LISTENER);
+            FLAG_LISTENER = null;
+        }
 
-        HandlerList.unregisterAll(DEATH_LISTENER);
-        DEATH_LISTENER = null;
+        if(DEATH_LISTENER != null) {
+            HandlerList.unregisterAll(DEATH_LISTENER);
+            DEATH_LISTENER = null;
+        }
 
         // unregister scoreboard teams
         for(Team team : CTFUtils.SCOREBOARD.getTeams()) {

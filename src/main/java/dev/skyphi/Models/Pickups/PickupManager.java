@@ -1,4 +1,4 @@
-package dev.skyphi.Models;
+package dev.skyphi.Models.Pickups;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,14 +13,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
-import dev.skyphi.Models.Pickups.JumpBoost;
+import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Pickups.Active.JumpBoost;
 
 public class PickupManager implements Listener {
     
@@ -34,6 +37,7 @@ public class PickupManager implements Listener {
 
     private List<ItemSpawner> spawners = new ArrayList<>();
     private List<Pickup> spawnedPickups = new ArrayList<>();
+    private List<ActivePickup> activePickups = new ArrayList<>();
 
     public PickupManager() {}
 
@@ -120,33 +124,49 @@ public class PickupManager implements Listener {
         }
 
         pickup.setOwner(player);
+        if(pickup instanceof ActivePickup) activePickups.add((ActivePickup)pickup);
     }
     private Pickup getPickupFromItem(Item item) {
-        for(Pickup pickup : spawnedPickups) {
-            if(pickup.getSpawnedItem().equals(item)) return pickup;
+        Pickup pickup = null;
+        for(Pickup p : spawnedPickups) {
+            if(p.getSpawnedItem().equals(item)) {
+                pickup = p;
+                break;
+            }
         }
-        return null;
+        if(pickup != null) spawnedPickups.remove(pickup);
+        return pickup;
     }
 
     @EventHandler
     public void on(PlayerInteractEvent event) {
+        if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
         Player player = event.getPlayer();
         CTFPlayer ctfp = CTFUtils.getCTFPlayer(player);
         if(ctfp == null) return;
 
         ItemStack itemStack = event.getItem();
-        Pickup pickup = getPickup(itemStack, player);
-        if(pickup == null) return;
+        if(itemStack == null) return;
 
-        pickup.activate();
-        spawnedPickups.remove(pickup);
-        player.getInventory().remove(itemStack);
+        ActivePickup activePickup = getActivePickup(itemStack.getItemMeta().getPersistentDataContainer());
+        if(activePickup == null) return;
+
+        event.setCancelled(true);
+
+        activePickup.activate();
+        itemStack.setAmount(itemStack.getAmount()-1);
     }
-    private Pickup getPickup(ItemStack itemStack, Player owner) {
-        for(Pickup pickup : spawnedPickups) {
-            if(pickup.getItemStack().equals(itemStack) && pickup.getOwner().equals(owner)) return pickup;
+    private ActivePickup getActivePickup(PersistentDataContainer pdc) {
+        ActivePickup activePickup = null;
+        for(ActivePickup ap : activePickups) {
+            if(pdc.getKeys().contains(ap.getKey())) {
+                activePickup = ap;
+                break;
+            }
         }
-        return null;
+        if(activePickup != null) activePickups.remove(activePickup);
+        return activePickup;
     }
 
 }

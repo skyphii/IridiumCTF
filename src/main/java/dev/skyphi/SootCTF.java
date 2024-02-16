@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import dev.skyphi.Commands.ScoreCommand;
 import dev.skyphi.Commands.SootCtfCommand;
 import dev.skyphi.Models.CTFTeam;
-import dev.skyphi.Models.PickupManager;
+import dev.skyphi.Models.Pickups.PickupManager;
 
 public class SootCTF extends JavaPlugin {
 
@@ -24,6 +24,7 @@ public class SootCTF extends JavaPlugin {
         INSTANCE = this;
 
         initConfig();
+        CTFUtils.initTeams();
 
         this.getCommand("sootctf").setExecutor(new SootCtfCommand());
         this.getCommand("score").setExecutor(new ScoreCommand());

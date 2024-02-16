@@ -1,10 +1,11 @@
-package dev.skyphi.Models.Pickups;
+package dev.skyphi.Models.Pickups.Active;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -15,10 +16,10 @@ import org.bukkit.util.Vector;
 
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.Pair;
-import dev.skyphi.Models.Pickup;
+import dev.skyphi.Models.Pickups.ActivePickup;
 import net.md_5.bungee.api.ChatColor;
 
-public class Barricade extends Pickup {
+public class Barricade extends ActivePickup {
 
     private static final int WIDTH = 3, HEIGHT = 4;
     private static final int TIME = 6; // in seconds
@@ -28,6 +29,7 @@ public class Barricade extends Pickup {
         name = ChatColor.DARK_PURPLE+""+ChatColor.BOLD+"Barricade";
         description = ChatColor.LIGHT_PURPLE+"Right click to spawn a wall in front of you!";
         itemStack = new ItemStack(Material.SHIELD);
+        key = new NamespacedKey(SootCTF.INSTANCE, "Barricade");
         init();
     }
 
