@@ -54,15 +54,17 @@ public class CTFUtils {
     }
 
     public static void announceWinner(CTFTeam winner) {
-        String title = getTeamChatColour(winner)+""+ChatColor.BOLD + SootCTF.TEAM1.getName() + " wins!";
-        String subtitle = getTeamChatColour(SootCTF.TEAM1)+""+ChatColor.BOLD + SootCTF.TEAM1.getScore()
+        CTFTeam loser = winner.equals(SootCTF.TEAM1) ? SootCTF.TEAM2 : SootCTF.TEAM1;
+
+        String title = getTeamChatColour(winner)+""+ChatColor.BOLD + winner.getName() + " wins!";
+        String subtitle = getTeamChatColour(winner)+""+ChatColor.BOLD + winner.getScore()
                         + ChatColor.GOLD+""+ChatColor.BOLD + " : "
-                        + getTeamChatColour(SootCTF.TEAM2)+""+ChatColor.BOLD + SootCTF.TEAM2.getScore();
+                        + getTeamChatColour(loser)+""+ChatColor.BOLD + loser.getScore();
         for(Player player : SootCTF.INSTANCE.getServer().getOnlinePlayers()) {
             player.sendTitle(title, subtitle, -1, -1, -1);
-            player.sendMessage(getTeamChatColour(winner)+""+ChatColor.BOLD + SootCTF.TEAM1.getName() + " wins!");
+            player.sendMessage(getTeamChatColour(winner)+""+ChatColor.BOLD + winner.getName() + " wins!");
         }
-        
+
         // clear titles on bedrock clients
         new BukkitRunnable() {
             @Override
