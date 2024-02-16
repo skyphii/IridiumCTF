@@ -137,6 +137,25 @@ public class SootCtfCommand implements CommandExecutor {
             
             SootCTF.INSTANCE.getConfig().set("flags_to_win", num);
             SootCTF.INSTANCE.saveConfig();
+        }else if(args[0].equalsIgnoreCase("spawnrate")) {
+            int num = -1;
+            try {
+                num = Integer.parseInt(args[1]);
+            }catch(NumberFormatException e) {
+                player.sendMessage(ChatColor.RED + "Usage: /ctf spawnrate <#>");
+                return true;
+            }
+            if(num <= 0) {
+                player.sendMessage(ChatColor.RED + "Number must be positive and non-zero.");
+                return true;
+            }
+
+            player.sendMessage(ChatColor.AQUA + "Items will now spawn every " + num + " seconds. (does not apply to active games)");
+
+            SootCTF.PICKUP_MANAGER.setItemSpawnRate(num);
+
+            SootCTF.INSTANCE.getConfig().set("item_spawn_rate", num);
+            SootCTF.INSTANCE.saveConfig();
         }
 
         return true;

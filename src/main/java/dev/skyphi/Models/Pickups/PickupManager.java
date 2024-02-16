@@ -107,6 +107,10 @@ public class PickupManager implements Listener {
         saveSpawners();
     }
 
+    public void setItemSpawnRate(int seconds) {
+        SPAWN_PERIOD = seconds;
+    }
+
     private Pickup getRandomPickup() {
         Class<? extends Pickup> pickupClass = PICKUPS.get((int)(Math.random() * PICKUPS.size()));
 

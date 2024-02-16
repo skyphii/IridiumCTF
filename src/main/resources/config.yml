@@ -26,5 +26,8 @@ pair_nearby_players: true
 # If pair_nearby_players is false, this won't do anything.
 strict_pairing: false
 
+# Number of seconds between item spawns. Keep in mind that ALL item spawners pop out items at the same time.
+item_spawn_rate: 10
+
 # Item Spawners
 item_spawners: null

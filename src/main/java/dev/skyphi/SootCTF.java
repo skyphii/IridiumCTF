@@ -57,6 +57,7 @@ public class SootCTF extends JavaPlugin {
 
         // item spawners
         PICKUP_MANAGER.loadSpawners();
+        PICKUP_MANAGER.setItemSpawnRate(config.getInt("item_spawn_rate"));
 
         // configurable options
         PAIR_NEARBY_PLAYERS = config.getBoolean("pair_nearby_players");
