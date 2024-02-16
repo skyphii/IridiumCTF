@@ -23,9 +23,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.CTFPlayer;
-import dev.skyphi.Models.Pickups.Active.Freezeball;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
 import dev.skyphi.Models.Pickups.Simple.SlownessArrows;
+import dev.skyphi.Models.Pickups.Simple.Freezeball;
 import dev.skyphi.Models.Pickups.Simple.GoldenApple;
 
 public class PickupManager implements Listener {

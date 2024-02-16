@@ -1,4 +1,4 @@
-package dev.skyphi.Models.Pickups.Active;
+package dev.skyphi.Models.Pickups.Simple;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
