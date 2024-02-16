@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Team;
 
 import dev.skyphi.CTFUtils;
@@ -121,6 +122,13 @@ public class CTFTeam {
 
     public void clearPlayers() {
         playerList.clear();
+    }
+
+    public void giveChestplates() {
+        ItemStack chestplate = CTFUtils.getTeamChestplate(this);
+        for(CTFPlayer ctfp : playerList.values()) {
+            ctfp.getPlayer().getInventory().setChestplate(chestplate);
+        }
     }
 
 }

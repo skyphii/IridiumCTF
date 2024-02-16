@@ -43,6 +43,8 @@ public class SootCtfCommand implements CommandExecutor {
                 CTFUtils.stop();
                 CTFUtils.initTeams();
                 makeTeams();
+                SootCTF.TEAM1.giveChestplates();
+                SootCTF.TEAM2.giveChestplates();
 
                 if(CTFUtils.FLAG_LISTENER != null) HandlerList.unregisterAll(CTFUtils.FLAG_LISTENER);
                 if(CTFUtils.DEATH_LISTENER != null) HandlerList.unregisterAll(CTFUtils.DEATH_LISTENER);
@@ -113,6 +115,7 @@ public class SootCtfCommand implements CommandExecutor {
             ctfp.getTeam().removePlayer(playerToSwap);
             CTFPlayer newCtfp = new CTFPlayer(playerToSwap, newTeam);
             newTeam.addPlayer(newCtfp);
+            playerToSwap.getInventory().setChestplate(CTFUtils.getTeamChestplate(newTeam));
             playerToSwap.teleport(newCtfp.getTeam().getFlag().getLocation().add(0, 1, 0));
 
             player.sendMessage("Player's team swapped!");

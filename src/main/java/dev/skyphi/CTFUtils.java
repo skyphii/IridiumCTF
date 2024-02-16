@@ -2,12 +2,15 @@ package dev.skyphi;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -80,6 +83,23 @@ public class CTFUtils {
         else if(n.contains("purple")) teamWool = Material.PURPLE_WOOL;
         else if(n.contains("green")) teamWool = Material.LIME_WOOL;
         return teamWool;
+    }
+
+    public static ItemStack getTeamChestplate(CTFTeam team) {
+        ItemStack teamChestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+        LeatherArmorMeta meta = (LeatherArmorMeta)teamChestplate.getItemMeta();
+        
+        String n = team.getName().toLowerCase();
+        if(n.contains("blue")) meta.setColor(Color.BLUE);
+        else if(n.contains("red")) meta.setColor(Color.RED);
+        else if(n.contains("yellow")) meta.setColor(Color.YELLOW);
+        else if(n.contains("purple")) meta.setColor(Color.PURPLE);
+        else if(n.contains("green")) meta.setColor(Color.LIME);
+
+        meta.setUnbreakable(true);
+        teamChestplate.setItemMeta(meta);
+
+        return teamChestplate;
     }
 
     public static void teleportTeamsToWorldSpawn() {
