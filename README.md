@@ -7,6 +7,7 @@ A new SootMC event plugin for **Capture the Flag**!
 - Use `/ctf spawner` to set item spawners. You'll be prompted to click a block just like for flags.
 - Use `/ctf <start/stop>` to start/stop the game. Starting the game will automatically make teams randomly (although, check the first Note/Tip in the next section about this)
 - Use `/ctf win <#>` to set the number of captures required to win. This can also be changed in the config.
+- Use `/ctf spawnrate <#>` to set item spawnrate. Every spawner will pop out an item every `<#>` seconds. This can also be changed in the config.
 - Make sure world spawn is in a good location (such as the centre of the map), as both teams will be teleported to it when a game ends.
 
 # Notes/Tips
