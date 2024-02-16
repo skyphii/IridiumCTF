@@ -17,3 +17,6 @@ A new SootMC event plugin for **Capture the Flag**!
 - All players can use `/score` to view the current score in chat. Currently, the only other time the score shows up is when a flag is captured.
 - Players are teleported **around** their team's flag when a flag is captured. Just thought that's worthy of a note. It is best to keep the immediate area around the flag clear of obstructions as there are **no** checks for suffocation.
 - Use `/ctf swap <player>` to swap a player's team during a game. They will be teleported to their new team's flag.
+
+# Known Issues
+- After using jump boost feather, if you land high enough to not take fall damage, the next time you *should* take fall damage, you won't.
