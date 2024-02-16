@@ -52,6 +52,7 @@ public class DeathListener implements Listener {
             @Override
             public void run() {
                 player.setHealth(20);
+                player.setFoodLevel(20);
                 player.setSaturation(20);
                 player.teleport(ctfp.getTeam().getFlag().getLocation());
                 player.setGameMode(gm);
