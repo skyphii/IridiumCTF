@@ -1,7 +1,6 @@
 package dev.skyphi.Listeners;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -28,8 +27,8 @@ public class FlagListener implements Listener {
         Block enemyFlag = enemyTeam.getFlag();
 
         if(!ctfp.hasFlag()) {   // no flag - check if player clicked enemy flag
-            if(block.getLocation().equals(enemyFlag.getLocation())) {
-                enemyFlag.setType(Material.AIR);
+            if(block.getLocation().equals(enemyFlag.getLocation()) && block.getType() == SootCTF.FLAG_TYPE) {
+                enemyFlag.setType(SootCTF.MISSING_FLAG_TYPE);
                 ctfp.setFlag(true);
 
                 // play sounds
@@ -44,7 +43,7 @@ public class FlagListener implements Listener {
         }else {                 // has flag - check if player clicked team flag
             Block teamFlag = ctfp.getTeam().getFlag();
 
-            if(block.getLocation().equals(teamFlag.getLocation())) {
+            if(block.getLocation().equals(teamFlag.getLocation()) && block.getType() == SootCTF.FLAG_TYPE) {
                 enemyFlag.setType(SootCTF.FLAG_TYPE);
                 ctfp.setFlag(false);
                 team.addPoint(ctfp);

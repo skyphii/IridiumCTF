@@ -14,7 +14,7 @@ public class SootCTF extends JavaPlugin {
     public static SootCTF INSTANCE;
     public static CTFTeam TEAM1, TEAM2;
     public static PickupManager PICKUP_MANAGER = new PickupManager();
-    public static Material FLAG_TYPE = Material.IRON_BLOCK;
+    public static Material FLAG_TYPE = Material.IRON_BLOCK, MISSING_FLAG_TYPE = Material.SMOOTH_STONE;
 
     public static boolean PAIR_NEARBY_PLAYERS, STRICT_PAIRING;
     public static int FLAGS_TO_WIN = 5, RESPAWN_TIMER = 5;
@@ -41,8 +41,10 @@ public class SootCTF extends JavaPlugin {
         FileConfiguration config = getConfig();
 
         // flag block type
-        Material configMat = Material.getMaterial(config.getString("flag_type"));
-        if(configMat != null) FLAG_TYPE = configMat;
+        Material flagMat = Material.getMaterial(config.getString("flag_type"));
+        if(flagMat != null) FLAG_TYPE = flagMat;
+        Material missingFlagMat = Material.getMaterial(config.getString("missing_flag_type"));
+        if(missingFlagMat != null || flagMat == missingFlagMat) MISSING_FLAG_TYPE = missingFlagMat;
 
         // item spawners
         PICKUP_MANAGER.loadSpawners();
