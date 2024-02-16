@@ -35,7 +35,10 @@ public class DeathListener implements Listener {
 
         // replace flag
         if(ctfp.hasFlag()) {
+            ctfp.setFlag(false);
             ctfp.getEnemyTeam().getFlag().setType(SootCTF.FLAG_TYPE);
+            ctfp.getTeam().announce(ChatColor.RED, "The enemy flag was returned to their base!");
+            ctfp.getEnemyTeam().announce(ChatColor.GREEN, "Your flag was returned to base!");
         }
 
         new BukkitRunnable() {
