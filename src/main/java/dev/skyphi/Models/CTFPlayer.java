@@ -36,14 +36,12 @@ public class CTFPlayer {
     public CTFPlayer(Player player, CTFTeam team) {
         this.player = player;
         this.team = team;
-
-        team.getMcTeam().addEntry(getPlayerName());
     }
 
     // GETTERS/SETTERS
 
     public Player getPlayer() { return player; }
-    public String getPlayerName() { return player.getDisplayName(); }
+    public String getPlayerName() { return player.getName(); }
 
     public UUID getUniqueId() { return player.getUniqueId(); }
 

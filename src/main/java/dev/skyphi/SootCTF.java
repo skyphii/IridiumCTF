@@ -9,6 +9,7 @@ import dev.skyphi.Commands.SootCtfCommand;
 import dev.skyphi.Listeners.FallListener;
 import dev.skyphi.Listeners.FreezeballListener;
 import dev.skyphi.Listeners.GoldenArrowListener;
+import dev.skyphi.Listeners.PlayerLeaveListener;
 import dev.skyphi.Models.CTFTeam;
 import dev.skyphi.Models.Pickups.PickupManager;
 
@@ -35,6 +36,7 @@ public class SootCTF extends JavaPlugin {
         SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(new FallListener(), SootCTF.INSTANCE);
         SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(new FreezeballListener(), SootCTF.INSTANCE);
         SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(new GoldenArrowListener(), SootCTF.INSTANCE);
+        SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), SootCTF.INSTANCE);
     }
 
     @Override

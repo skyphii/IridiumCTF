@@ -30,8 +30,14 @@ public class CTFTeam {
 
     // GETTERS/SETTERS
 
-    public void addPlayer(CTFPlayer player) { playerList.put(player.getUniqueId(), player); }
-    public void removePlayer(Player player) { playerList.remove(player.getUniqueId()); }
+    public void addPlayer(CTFPlayer player) {
+        playerList.put(player.getUniqueId(), player);
+        mcTeam.addEntry(player.getPlayerName());
+    }
+    public void removePlayer(Player player) {
+        playerList.remove(player.getUniqueId());
+        mcTeam.removeEntry(player.getName());
+    }
     public CTFPlayer getCtfPlayer(Player player) { return playerList.get(player.getUniqueId()); }
     public Player removeRandomPlayer() {
         int randomNum = (int)(Math.random() * playerList.size());
