@@ -104,6 +104,9 @@ public class CTFUtils {
         for(Team team : CTFUtils.SCOREBOARD.getTeams()) {
             team.unregister();
         }
+
+        SootCTF.TEAM1.clearPlayers();
+        SootCTF.TEAM2.clearPlayers();
     }
 
     public static void initTeams() {

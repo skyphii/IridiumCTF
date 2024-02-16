@@ -119,4 +119,8 @@ public class CTFTeam {
         }
     }
 
+    public void clearPlayers() {
+        playerList.clear();
+    }
+
 }

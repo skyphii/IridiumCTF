@@ -116,6 +116,24 @@ public class SootCtfCommand implements CommandExecutor {
             playerToSwap.teleport(playerToSwap.getWorld().getSpawnLocation());
 
             player.sendMessage("Player's team swapped!");
+        }else if(args[0].equalsIgnoreCase("win")) {
+            int num = -1;
+            try {
+                num = Integer.parseInt(args[1]);
+            }catch(NumberFormatException e) {
+                player.sendMessage(ChatColor.RED + "Usage: /ctf win <#>");
+                return true;
+            }
+            if(num <= 0) {
+                player.sendMessage(ChatColor.RED + "Number must be positive and non-zero.");
+                return true;
+            }
+
+            player.sendMessage(ChatColor.AQUA + "Number of captures needed to win is now " + num + ".");
+            SootCTF.FLAGS_TO_WIN = num;
+            
+            SootCTF.INSTANCE.getConfig().set("flags_to_win", num);
+            SootCTF.INSTANCE.saveConfig();
         }
 
         return true;
