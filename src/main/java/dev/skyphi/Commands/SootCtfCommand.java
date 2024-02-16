@@ -56,13 +56,13 @@ public class SootCtfCommand implements CommandExecutor {
                 SootCTF.TEAM1.teleport();
                 SootCTF.TEAM2.teleport();
                 SootCTF.PICKUP_MANAGER.startSpawning();
-                CTFUtils.broadcast("Game started!");
+                CTFUtils.broadcast("Game started!", true);
             }else if(args[0].equalsIgnoreCase("stop")) {
                 // stop game
                 SootCTF.PICKUP_MANAGER.stopSpawning();
                 CTFUtils.teleportTeamsToWorldSpawn();
                 CTFUtils.stop();
-                CTFUtils.broadcast("Game stopped!");
+                CTFUtils.broadcast("Game stopped!", true);
             }else if(args[0].equalsIgnoreCase("spawner")) {
                 // setup item spawner
                 new SetupListener(player, SetupType.SPAWNER);

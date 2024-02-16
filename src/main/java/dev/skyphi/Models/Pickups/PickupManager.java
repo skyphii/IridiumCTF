@@ -27,13 +27,15 @@ import dev.skyphi.Models.Pickups.Active.JumpBoost;
 import dev.skyphi.Models.Pickups.Simple.SlownessArrows;
 import dev.skyphi.Models.Pickups.Simple.Freezeball;
 import dev.skyphi.Models.Pickups.Simple.GoldenApple;
+import dev.skyphi.Models.Pickups.Simple.GoldenArrow;
 
 public class PickupManager implements Listener {
     
     private static final int INITIAL_DELAY = 0, SPAWN_PERIOD = 20;
     private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
-        JumpBoost.class,
-        GoldenApple.class, SlownessArrows.class, Freezeball.class
+        // JumpBoost.class,
+        // GoldenApple.class, SlownessArrows.class, Freezeball.class, 
+        GoldenArrow.class
         // Barricade.class // currently broken, don't use
     );
 
@@ -132,7 +134,15 @@ public class PickupManager implements Listener {
         }
 
         pickup.setOwner(player);
-        if(pickup instanceof ActivePickup) activePickups.add((ActivePickup)pickup);
+
+        // for items where the dropped item should look different than the *actual* item that gets picked up
+        ItemStack actualItem = pickup.getActualItem();
+        if(actualItem != null) event.getItem().setItemStack(actualItem);
+
+        if(pickup instanceof ActivePickup) {
+            ActivePickup activePickup = (ActivePickup)pickup;
+            activePickups.add(activePickup);
+        }
     }
     private Pickup getPickupFromItem(Item item) {
         Pickup pickup = null;

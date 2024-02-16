@@ -9,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class Pickup {
     
-    protected ItemStack itemStack;
+    protected ItemStack itemStack, actualItem;
     protected String name, description;
     protected Player owner;
 
@@ -31,5 +31,7 @@ public abstract class Pickup {
 
     public Item getSpawnedItem() { return spawnedItem; }
     public void setSpawnedItem(Item spawnedItem) { this.spawnedItem = spawnedItem; }
+
+    public ItemStack getActualItem() { return actualItem; }
 
 }

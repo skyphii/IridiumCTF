@@ -37,8 +37,8 @@ public class CTFUtils {
         return SootCTF.TEAM2.getCtfPlayer(player);
     }
 
-    public static void broadcast(String msg) {
-        SootCTF.INSTANCE.getServer().broadcastMessage(PREFIX + msg);
+    public static void broadcast(String msg, boolean usePrefix) {
+        SootCTF.INSTANCE.getServer().broadcastMessage((usePrefix?PREFIX:ChatColor.AQUA) + msg);
     }
 
     public static void showScore(CTFPlayer flagCarrier) {
