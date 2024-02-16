@@ -24,12 +24,14 @@ import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
+import dev.skyphi.Models.Pickups.Simple.GoldenApple;
 
 public class PickupManager implements Listener {
     
     private static final int INITIAL_DELAY = 0, SPAWN_PERIOD = 20;
     private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
-        JumpBoost.class
+        JumpBoost.class,
+        GoldenApple.class
         // Barricade.class // currently broken, don't use
     );
 
