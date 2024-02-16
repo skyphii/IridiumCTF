@@ -139,6 +139,12 @@ public class CTFTeam {
     }
 
     public void clearPlayers() {
+        playerList.values().forEach(ctfp -> {
+            if(ctfp.hasFlag()) {
+                ctfp.setFlag(false);
+                ctfp.getEnemyTeam().getFlag().setType(SootCTF.FLAG_TYPE);
+            }
+        });
         playerList.clear();
     }
 
