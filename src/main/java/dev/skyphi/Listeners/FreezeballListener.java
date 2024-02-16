@@ -8,19 +8,27 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
+import dev.skyphi.Models.CTFPlayer;
 
 public class FreezeballListener implements Listener {
 
     @EventHandler
     public void on(ProjectileHitEvent event) {
-        if(event.getEntityType() != EntityType.SNOWBALL && event.getEntity().getShooter() instanceof Player) return;
+        if(event.getEntityType() != EntityType.SNOWBALL || !(event.getEntity().getShooter() instanceof Player)) return;
         if(!(event.getHitEntity() instanceof LivingEntity)) return;
 
         final LivingEntity hitEntity = (LivingEntity)event.getHitEntity();
         if(hitEntity == null) return;
 
         event.setCancelled(true);
+
+        if(hitEntity instanceof Player) {
+            CTFPlayer ctfp = CTFUtils.getCTFPlayer((Player)hitEntity);
+            CTFPlayer shooterCtfp = CTFUtils.getCTFPlayer((Player)event.getEntity().getShooter());
+            if(ctfp.getTeam().equals(shooterCtfp.getTeam())) return;
+        }
 
         final BukkitRunnable hurtRunnable = new BukkitRunnable() {
 			@Override
