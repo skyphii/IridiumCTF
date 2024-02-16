@@ -113,7 +113,7 @@ public class SootCtfCommand implements CommandExecutor {
             ctfp.getTeam().removePlayer(playerToSwap);
             CTFPlayer newCtfp = new CTFPlayer(playerToSwap, newTeam);
             newTeam.addPlayer(newCtfp);
-            playerToSwap.teleport(playerToSwap.getWorld().getSpawnLocation());
+            playerToSwap.teleport(newCtfp.getTeam().getFlag().getLocation().add(0, 1, 0));
 
             player.sendMessage("Player's team swapped!");
         }else if(args[0].equalsIgnoreCase("win")) {
