@@ -120,6 +120,11 @@ public class CTFUtils {
         SootCTF.TEAM2.teleportWorldSpawn();
     }
 
+    public static void teleportTeamsToFlags() {
+        SootCTF.TEAM1.teleport();
+        SootCTF.TEAM2.teleport();
+    }
+
     public static void stop() {
         if(FLAG_LISTENER != null) {
             HandlerList.unregisterAll(FLAG_LISTENER);

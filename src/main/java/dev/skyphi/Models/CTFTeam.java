@@ -51,7 +51,7 @@ public class CTFTeam {
             CTFUtils.stop();
         }else {
             CTFUtils.showScore(flagCarrier);
-            teleport();
+            CTFUtils.teleportTeamsToFlags();
         }
     }
 
