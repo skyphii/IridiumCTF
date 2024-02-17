@@ -1,5 +1,6 @@
 package dev.skyphi.Models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -7,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,6 +20,7 @@ import dev.skyphi.SootCTF;
 public class CTFTeam {
     
     private HashMap<UUID, CTFPlayer> playerList = new HashMap<>();
+    private ArrayList<LivingEntity> mobs = new ArrayList<>();
     private Block flag;
     private int score;
     private String name;
@@ -69,6 +72,18 @@ public class CTFTeam {
 
     public Team getMcTeam() { return mcTeam; }
     public void setMcTeam(Team mcTeam) { this.mcTeam = mcTeam; }
+
+    public void addMob(LivingEntity mob) {
+        mcTeam.addEntry(mob.getUniqueId().toString());
+        mobs.add(mob);
+    }
+    public void clearMobs() {
+        for(LivingEntity mob : mobs) {
+            if(mob == null) continue;
+            mob.remove();
+        }
+        mobs.clear();
+    }
 
     // UTILITY
 

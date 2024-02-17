@@ -13,7 +13,7 @@ public class GoldenArrowListener implements Listener {
     
     @EventHandler
     public void on(ProjectileHitEvent event) {
-        if(event.getEntityType() != EntityType.SPECTRAL_ARROW && event.getEntity().getShooter() instanceof Player) return;
+        if(event.getEntityType() != EntityType.SPECTRAL_ARROW || !(event.getEntity().getShooter() instanceof Player)) return;
         if(event.getHitEntity() == null || !(event.getHitEntity() instanceof Player)) {
             event.getEntity().remove();
             return;

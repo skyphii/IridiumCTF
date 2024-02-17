@@ -140,13 +140,16 @@ public class CTFUtils {
 
         SootCTF.PICKUP_MANAGER.stopSpawning();
 
+        SootCTF.TEAM1.clearPlayers();
+        SootCTF.TEAM2.clearPlayers();
+        
+        SootCTF.TEAM1.clearMobs();
+        SootCTF.TEAM2.clearMobs();
+
         // unregister scoreboard teams
         for(Team team : CTFUtils.SCOREBOARD.getTeams()) {
             team.unregister();
         }
-
-        SootCTF.TEAM1.clearPlayers();
-        SootCTF.TEAM2.clearPlayers();
     }
 
     public static void initTeams() {

@@ -9,11 +9,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.util.Vector;
 
-public class TntListener implements Listener {
+public class ExplosionListener implements Listener {
     
     @EventHandler
     public void on(EntityExplodeEvent event) {
-        if(event.getEntityType() != EntityType.PRIMED_TNT) return;
+        if(event.getEntityType() != EntityType.PRIMED_TNT && event.getEntityType() != EntityType.CREEPER) return;
         
         // clear blocks so none are destroyed
         event.blockList().clear();
