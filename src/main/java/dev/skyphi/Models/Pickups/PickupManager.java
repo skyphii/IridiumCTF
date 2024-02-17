@@ -26,6 +26,7 @@ import dev.skyphi.SootCTF;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.Pickups.Active.GoldenArrow;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
+import dev.skyphi.Models.Pickups.Active.ThrowTnt;
 import dev.skyphi.Models.Pickups.Simple.Freezeball;
 import dev.skyphi.Models.Pickups.Simple.GoldenApple;
 import dev.skyphi.Models.Pickups.Simple.SlownessArrows;
@@ -35,7 +36,7 @@ public class PickupManager implements Listener {
     private static final int INITIAL_DELAY = 0; // in seconds
     private static int SPAWN_PERIOD = 20;       // in seconds
     private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
-        JumpBoost.class,
+        JumpBoost.class, ThrowTnt.class,
         GoldenApple.class, SlownessArrows.class, Freezeball.class, GoldenArrow.class
         // Barricade.class // currently broken, don't use
     );
@@ -70,6 +71,7 @@ public class PickupManager implements Listener {
                     spawnedPickups.add(pickup);
                     Item spawnedItem = spawner.spawnItem(pickup.getItemStack());
                     spawnedItem.setGravity(false);
+                    spawnedItem.setInvulnerable(true);
                     pickup.setSpawnedItem(spawnedItem);
                     spawner.getBlock().getWorld().spawnParticle(Particle.HEART, spawner.getBlock().getLocation().add(0.5, 2, 0.5), 0, 0d, 0.4d, 0d);
                 });
