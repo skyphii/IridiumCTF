@@ -16,8 +16,8 @@ public class ItemSpawner {
     public Block getBlock() { return block; }
 
     public Item spawnItem(ItemStack itemStack) {
-        Item item = block.getWorld().dropItem(block.getLocation().add(0.5, 1, 0.5), itemStack);
-        item.setVelocity(new Vector(0, 0.4, 0));
+        Item item = block.getWorld().dropItem(block.getLocation().add(0.5, 1.75, 0.5), itemStack);
+        item.setVelocity(new Vector());
         return item;
     }
 

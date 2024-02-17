@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
@@ -25,21 +26,21 @@ import dev.skyphi.SootCTF;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.Pickups.Active.GoldenArrow;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
-import dev.skyphi.Models.Pickups.Simple.SlownessArrows;
 import dev.skyphi.Models.Pickups.Simple.Freezeball;
 import dev.skyphi.Models.Pickups.Simple.GoldenApple;
+import dev.skyphi.Models.Pickups.Simple.SlownessArrows;
 
 public class PickupManager implements Listener {
     
     private static final int INITIAL_DELAY = 0; // in seconds
-    private static int SPAWN_PERIOD = 10;       // in seconds
+    private static int SPAWN_PERIOD = 20;       // in seconds
     private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
         JumpBoost.class,
         GoldenApple.class, SlownessArrows.class, Freezeball.class, GoldenArrow.class
         // Barricade.class // currently broken, don't use
     );
 
-    private BukkitRunnable spawnRunnable;
+    private BukkitRunnable spawnRunnable, particleRunnable;
 
     private List<ItemSpawner> spawners = new ArrayList<>();
     private List<Pickup> spawnedPickups = new ArrayList<>();
@@ -52,9 +53,8 @@ public class PickupManager implements Listener {
             SootCTF.INSTANCE.getLogger().log(Level.WARNING, "No item spawners set! There will be no item spawning for this game.");
             return;
         }
-        if(spawnRunnable != null) {
-            spawnRunnable.cancel();
-        }
+        if(spawnRunnable != null) spawnRunnable.cancel();
+        if(particleRunnable != null) particleRunnable.cancel();
         spawnedPickups.clear();
         activePickups.clear();
         spawnRunnable = new BukkitRunnable() {
@@ -69,19 +69,35 @@ public class PickupManager implements Listener {
                     
                     spawnedPickups.add(pickup);
                     Item spawnedItem = spawner.spawnItem(pickup.getItemStack());
+                    spawnedItem.setGravity(false);
                     pickup.setSpawnedItem(spawnedItem);
+                    spawner.getBlock().getWorld().spawnParticle(Particle.HEART, spawner.getBlock().getLocation().add(0.5, 2, 0.5), 0, 0d, 0.4d, 0d);
                 });
             }
         };
         spawnRunnable.runTaskTimer(SootCTF.INSTANCE, 20*INITIAL_DELAY, 20*SPAWN_PERIOD);
 
         SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(this, SootCTF.INSTANCE);
+
+        particleRunnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                spawners.forEach(spawner -> {
+                    spawner.getBlock().getWorld().spawnParticle(Particle.SOUL, spawner.getBlock().getLocation().add(0.5, 0.5, 0.5), 0, 0d, 0.08d, 0d);
+                });
+            }
+        };
+        particleRunnable.runTaskTimer(SootCTF.INSTANCE, 20*INITIAL_DELAY, 10);
     }
 
     public void stopSpawning() {
         if(spawnRunnable != null) {
             spawnRunnable.cancel();
             spawnRunnable = null;
+        }
+        if(particleRunnable != null) {
+            particleRunnable.cancel();
+            particleRunnable = null;
         }
         HandlerList.unregisterAll(this);
         clearSpawnedPickups();
