@@ -51,7 +51,7 @@ public class ProjectileListener implements Listener {
 
             // add helmet to avoid burning in sun
             ItemStack helmet = MobEgg.HELMET;
-            helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+            helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
             ItemMeta meta = helmet.getItemMeta();
             meta.setUnbreakable(true);
             helmet.setItemMeta(meta);
@@ -59,6 +59,9 @@ public class ProjectileListener implements Listener {
 
             // add team chestplate
             entity.getEquipment().setChestplate(CTFUtils.getTeamChestplate(ctfp.getTeam()));
+            // add coloured nametag
+            entity.setCustomName(CTFUtils.getTeamChatColour(ctfp.getTeam())+ctfp.getTeam().getName()+" DEFENDER");
+            entity.setCustomNameVisible(true);
 
             event.setCancelled(true);
             projectile.remove();

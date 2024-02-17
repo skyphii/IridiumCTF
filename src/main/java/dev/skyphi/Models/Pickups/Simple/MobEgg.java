@@ -11,7 +11,7 @@ public class MobEgg extends Pickup {
     
     public static final EntityType[] MOB_TYPES = {
         EntityType.ZOMBIE, EntityType.SKELETON, EntityType.CREEPER, EntityType.GUARDIAN,
-        EntityType.HUSK, EntityType.WITHER_SKELETON, EntityType.SPIDER, EntityType.RABBIT
+        EntityType.HUSK, EntityType.WITHER_SKELETON, EntityType.RABBIT
     };
     public static final ItemStack HELMET = new ItemStack(Material.GOLDEN_HELMET);
 
