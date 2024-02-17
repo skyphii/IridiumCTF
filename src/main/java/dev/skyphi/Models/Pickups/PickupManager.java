@@ -23,11 +23,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Pickups.Active.GoldenArrow;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
 import dev.skyphi.Models.Pickups.Simple.SlownessArrows;
 import dev.skyphi.Models.Pickups.Simple.Freezeball;
 import dev.skyphi.Models.Pickups.Simple.GoldenApple;
-import dev.skyphi.Models.Pickups.Simple.GoldenArrow;
 
 public class PickupManager implements Listener {
     
@@ -146,7 +146,7 @@ public class PickupManager implements Listener {
 
         if(pickup instanceof ActivePickup) {
             ActivePickup activePickup = (ActivePickup)pickup;
-            activePickups.add(activePickup);
+            for(int i = 0; i < event.getItem().getItemStack().getAmount(); i++) activePickups.add(activePickup);
         }
     }
     private Pickup getPickupFromItem(Item item) {
@@ -157,7 +157,9 @@ public class PickupManager implements Listener {
                 break;
             }
         }
-        if(pickup != null) spawnedPickups.remove(pickup);
+        if(pickup != null) {
+            for(int i = 0; i < item.getItemStack().getAmount(); i++) spawnedPickups.remove(pickup);
+        }
         return pickup;
     }
 

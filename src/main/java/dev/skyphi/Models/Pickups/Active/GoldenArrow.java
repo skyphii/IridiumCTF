@@ -1,4 +1,4 @@
-package dev.skyphi.Models.Pickups.Simple;
+package dev.skyphi.Models.Pickups.Active;
 
 import java.util.Arrays;
 
@@ -28,7 +28,7 @@ public class GoldenArrow extends ActivePickup {
         actualItem = new ItemStack(Material.CROSSBOW);
         CrossbowMeta meta = (CrossbowMeta)actualItem.getItemMeta();
         meta.addChargedProjectile(itemStack);
-        meta.setDisplayName(name);
+        meta.setDisplayName(ChatColor.GOLD+""+ChatColor.BOLD+"Golden Arrow");
         meta.setLore(Arrays.asList(description));
         meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte)1);
         actualItem.setItemMeta(meta);
