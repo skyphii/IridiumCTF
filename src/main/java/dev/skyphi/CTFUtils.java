@@ -1,6 +1,5 @@
 package dev.skyphi;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -30,7 +29,7 @@ public class CTFUtils {
 
     public static FlagListener FLAG_LISTENER;
     public static DeathListener DEATH_LISTENER;
-    public static Scoreboard SCOREBOARD = Bukkit.getScoreboardManager().getMainScoreboard();
+    public static Scoreboard SCOREBOARD = SootCTF.INSTANCE.getServer().getScoreboardManager().getMainScoreboard();
     
     public static CTFPlayer getCTFPlayer(Player player) {
         CTFPlayer ctfp = SootCTF.TEAM1.getCtfPlayer(player);
