@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,6 +20,7 @@ import org.holoeasy.pool.IHologramPool;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
+import dev.skyphi.Models.Pickups.Pickup;
 
 public class CTFPlayer {
 
@@ -77,6 +80,17 @@ public class CTFPlayer {
             flagRunnable.cancel();
             flagRunnable = null;
             HOLO_POOL.remove(holoKey);
+        }
+    }
+
+    public void removePickups() {
+        for(ItemStack item : player.getInventory().getContents()) {
+            if(item == null) continue;
+            PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+            if(pdc.has(Pickup.PICKUP_KEY, PersistentDataType.BYTE)) {
+                SootCTF.PICKUP_MANAGER.removeActivePickup(pdc);
+                item.setAmount(0);
+            }
         }
     }
 

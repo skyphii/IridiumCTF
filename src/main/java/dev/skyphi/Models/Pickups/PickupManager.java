@@ -55,6 +55,8 @@ public class PickupManager implements Listener {
         if(spawnRunnable != null) {
             spawnRunnable.cancel();
         }
+        spawnedPickups.clear();
+        activePickups.clear();
         spawnRunnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -82,6 +84,7 @@ public class PickupManager implements Listener {
             spawnRunnable = null;
         }
         HandlerList.unregisterAll(this);
+        clearSpawnedPickups();
     }
 
     public void loadSpawners() {
@@ -192,6 +195,22 @@ public class PickupManager implements Listener {
         }
         if(activePickup != null) activePickups.remove(activePickup);
         return activePickup;
+    }
+
+    public void removeActivePickup(PersistentDataContainer pdc) {
+        for(ActivePickup ap : activePickups) {
+            if(pdc.getKeys().contains(ap.getKey())) {
+                activePickups.remove(ap);
+                return;
+            }
+        }
+    }
+
+    public void clearSpawnedPickups() {
+        for(Pickup pickup : spawnedPickups) {
+            pickup.getSpawnedItem().remove();
+        }
+        spawnedPickups.clear();
     }
 
 }

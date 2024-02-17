@@ -19,19 +19,19 @@ import dev.skyphi.Models.Pickups.ActivePickup;
 public class GoldenArrow extends ActivePickup {
     
     public GoldenArrow() {
-        name = ChatColor.GOLD+""+ChatColor.BOLD+"Golden Crossbow";
+        name = ChatColor.GOLD+""+ChatColor.BOLD+"Golden Arrow";
         description = ChatColor.GOLD+"One shot. One opportunity.";
         itemStack = new ItemStack(Material.SPECTRAL_ARROW);
         key = new NamespacedKey(SootCTF.INSTANCE, "GoldenArrow");
-        init();
 
         actualItem = new ItemStack(Material.CROSSBOW);
         CrossbowMeta meta = (CrossbowMeta)actualItem.getItemMeta();
         meta.addChargedProjectile(itemStack);
-        meta.setDisplayName(ChatColor.GOLD+""+ChatColor.BOLD+"Golden Arrow");
+        meta.setDisplayName(ChatColor.GOLD+""+ChatColor.BOLD+"Golden Crossbow");
         meta.setLore(Arrays.asList(description));
         meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte)1);
         actualItem.setItemMeta(meta);
+        init();
     }
 
     @Override

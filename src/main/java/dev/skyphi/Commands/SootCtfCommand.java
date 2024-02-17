@@ -53,8 +53,8 @@ public class SootCtfCommand implements CommandExecutor {
                 SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.FLAG_LISTENER, SootCTF.INSTANCE);
                 SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.DEATH_LISTENER, SootCTF.INSTANCE);
 
-                SootCTF.TEAM1.teleport();
-                SootCTF.TEAM2.teleport();
+                SootCTF.TEAM1.tpTeamToFlag();
+                SootCTF.TEAM2.tpTeamToFlag();
                 SootCTF.PICKUP_MANAGER.startSpawning();
                 CTFUtils.broadcast("Game started!", true);
             }else if(args[0].equalsIgnoreCase("stop")) {

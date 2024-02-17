@@ -48,6 +48,8 @@ public class DeathListener implements Listener {
             ctfp.getEnemyTeam().announce(ChatColor.GREEN, "Your flag was returned to base!");
         }
 
+        ctfp.removePickups();
+
         new BukkitRunnable() {
             @Override
             public void run() {

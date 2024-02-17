@@ -108,7 +108,10 @@ public class CTFTeam {
         }
     }
 
-    public void teleport() {
+    public void tpTeamToFlag() {
+        removePickups();
+        SootCTF.PICKUP_MANAGER.clearSpawnedPickups();
+
         Location flagLoc = flag.getLocation().clone();
         int x = -4;
         int z = -4;
@@ -152,6 +155,12 @@ public class CTFTeam {
         ItemStack chestplate = CTFUtils.getTeamChestplate(this);
         for(CTFPlayer ctfp : playerList.values()) {
             ctfp.getPlayer().getInventory().setChestplate(chestplate);
+        }
+    }
+
+    public void removePickups() {
+        for(CTFPlayer ctfp : playerList.values()) {
+            ctfp.removePickups();
         }
     }
 

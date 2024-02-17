@@ -121,8 +121,8 @@ public class CTFUtils {
     }
 
     public static void teleportTeamsToFlags() {
-        SootCTF.TEAM1.teleport();
-        SootCTF.TEAM2.teleport();
+        SootCTF.TEAM1.tpTeamToFlag();
+        SootCTF.TEAM2.tpTeamToFlag();
     }
 
     public static void stop() {
@@ -135,6 +135,9 @@ public class CTFUtils {
             HandlerList.unregisterAll(DEATH_LISTENER);
             DEATH_LISTENER = null;
         }
+
+        SootCTF.TEAM1.removePickups();
+        SootCTF.TEAM2.removePickups();
 
         SootCTF.PICKUP_MANAGER.stopSpawning();
 
