@@ -161,12 +161,12 @@ public class CTFUtils {
         SootCTF.TEAM2 = new CTFTeam(config.getString("teams.two.name"), block2);
 
         // Setup scoreboard teams
-        Team scoreboardTeam1 = SCOREBOARD.registerNewTeam(SootCTF.TEAM1.getName());
+        Team scoreboardTeam1 = SCOREBOARD.registerNewTeam(SootCTF.TEAM1.getName().replace(' ', '_'));
         SootCTF.TEAM1.setMcTeam(scoreboardTeam1);
         scoreboardTeam1.setColor(getTeamChatColour(SootCTF.TEAM1));
         scoreboardTeam1.setAllowFriendlyFire(false);
 
-        Team scoreboardTeam2 = SCOREBOARD.registerNewTeam(SootCTF.TEAM2.getName());
+        Team scoreboardTeam2 = SCOREBOARD.registerNewTeam(SootCTF.TEAM2.getName().replace(' ', '_'));
         SootCTF.TEAM2.setMcTeam(scoreboardTeam2);
         scoreboardTeam2.setColor(getTeamChatColour(SootCTF.TEAM2));
         scoreboardTeam2.setAllowFriendlyFire(false);
