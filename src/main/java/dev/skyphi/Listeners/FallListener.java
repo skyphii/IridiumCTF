@@ -8,6 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import dev.skyphi.SootCTF;
 
 public class FallListener implements Listener {
     
@@ -24,7 +27,15 @@ public class FallListener implements Listener {
     }
 
     public static void addPlayer(Player player) {
+        if(players.contains(player)) return;
         players.add(player);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                players.remove(player);
+            }
+        }.runTaskLater(SootCTF.INSTANCE, 20*4);
     }
 
 }
