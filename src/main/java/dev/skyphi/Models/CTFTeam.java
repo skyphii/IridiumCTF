@@ -105,6 +105,7 @@ public class CTFTeam {
 
         for(CTFPlayer ctfp : playerList.values()) {
             ctfp.getPlayer().sendMessage(ChatColor.GOLD + "You are on " + teamColour + ChatColor.BOLD + name + "!");
+            ctfp.getPlayer().playSound(ctfp.getPlayer().getLocation(), Sound.ITEM_GOAT_HORN_SOUND_0, 1, 1);
         }
     }
 

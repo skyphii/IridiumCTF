@@ -1,5 +1,6 @@
 package dev.skyphi.Models.Pickups;
 
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +19,7 @@ public class ItemSpawner {
     public Item spawnItem(ItemStack itemStack) {
         Item item = block.getWorld().dropItem(block.getLocation().add(0.5, 1.75, 0.5), itemStack);
         item.setVelocity(new Vector());
+        block.getWorld().playSound(item.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_STEP, 1, 1);
         return item;
     }
 
