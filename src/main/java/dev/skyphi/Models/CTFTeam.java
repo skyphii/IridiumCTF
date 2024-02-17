@@ -112,25 +112,35 @@ public class CTFTeam {
         removePickups();
         SootCTF.PICKUP_MANAGER.clearSpawnedPickups();
 
-        Location flagLoc = flag.getLocation().clone();
-        int x = -4;
-        int z = -4;
+        Location baseLoc = flag.getLocation().clone().add(0.5, 1, 0.5);
+        int x = -2;
+        int z = -2;
         for(CTFPlayer ctfp : playerList.values()) {
-            flagLoc.add(x+0.5, 0, z+0.5);
-            ctfp.getPlayer().teleport(flagLoc);
+            Location tpLoc = baseLoc.clone().add(x, 0, z);
+            int retryCount = 0, maxRetries = 25;
+            while(!tpLoc.getBlock().isPassable() || !tpLoc.getBlock().getRelative(0, 1, 0).isPassable()) {
+                tpLoc = baseLoc.clone().add(x, 0, z);
+                
+                x++;
+                if(x > 2) {
+                    x = -2;
+                    z++;
+                }
+                if(z > 2) {
+                    x = -2;
+                    z = -2;
+                }
+
+                // prevent stack overflow, give up and spawn on top of flag
+                if(retryCount++ >= maxRetries) {
+                    tpLoc = baseLoc;
+                    break;
+                }
+            }
+            ctfp.getPlayer().teleport(tpLoc);
             ctfp.getPlayer().setHealth(20);
             ctfp.getPlayer().setFoodLevel(20);
             ctfp.getPlayer().setSaturation(20);
-
-            x++;
-            if(x > 4) {
-                x = -4;
-                z++;
-            }
-            if(z > 4) {
-                x = -4;
-                z = -4;
-            }
         }
     }
 
