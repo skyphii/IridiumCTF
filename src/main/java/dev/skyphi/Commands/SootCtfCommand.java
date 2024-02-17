@@ -118,7 +118,8 @@ public class SootCtfCommand implements CommandExecutor {
             playerToSwap.getInventory().setChestplate(CTFUtils.getTeamChestplate(newTeam));
             playerToSwap.teleport(newCtfp.getTeam().getFlag().getLocation().add(0, 1, 0));
 
-            player.sendMessage("Player's team swapped!");
+            player.sendMessage(ChatColor.AQUA+"Player's team swapped!");
+            playerToSwap.sendMessage(ChatColor.AQUA+"You have been swapped to " + CTFUtils.getTeamChatColour(newTeam)+ChatColor.BOLD+newTeam.getName());
         }else if(args[0].equalsIgnoreCase("win")) {
             int num = -1;
             try {
