@@ -27,6 +27,7 @@ import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.Pickups.Active.GoldenArrow;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
+import dev.skyphi.Models.Pickups.Active.SpeedBoost;
 import dev.skyphi.Models.Pickups.Active.ThrowTnt;
 import dev.skyphi.Models.Pickups.Simple.Freezeball;
 import dev.skyphi.Models.Pickups.Simple.GoldenApple;
@@ -38,7 +39,7 @@ public class PickupManager implements Listener {
     private static final int INITIAL_DELAY = 0; // in seconds
     private static int SPAWN_PERIOD = 20;       // in seconds
     private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
-        JumpBoost.class, ThrowTnt.class,
+        JumpBoost.class, ThrowTnt.class, SpeedBoost.class,
         GoldenApple.class, SlownessArrows.class, Freezeball.class, GoldenArrow.class, MobEgg.class
         // Barricade.class // currently broken, don't use
     );
