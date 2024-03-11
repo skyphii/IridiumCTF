@@ -133,6 +133,10 @@ public class PickupManager implements Listener {
         CTFConfig.save();
     }
 
+    public void addActivePickup(ActivePickup activePickup) {
+        for(int i = 0; i < activePickup.getActualItem().getAmount(); i++) this.activePickups.add(activePickup);
+    }
+
     private Pickup getRandomPickup() {
         Class<? extends Pickup> pickupClass = PICKUPS.get((int)(Math.random() * PICKUPS.size()));
 

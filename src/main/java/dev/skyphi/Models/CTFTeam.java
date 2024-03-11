@@ -16,6 +16,7 @@ import org.bukkit.scoreboard.Team;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
+import dev.skyphi.Models.Pickups.Simple.Arrows;
 
 public class CTFTeam {
     
@@ -157,6 +158,7 @@ public class CTFTeam {
             ctfp.getPlayer().setHealth(20);
             ctfp.getPlayer().setFoodLevel(20);
             ctfp.getPlayer().setSaturation(20);
+            ctfp.addPickup(new Arrows());
         }
     }
 

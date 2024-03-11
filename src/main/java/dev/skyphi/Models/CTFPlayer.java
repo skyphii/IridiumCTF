@@ -20,6 +20,7 @@ import org.holoeasy.pool.IHologramPool;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
+import dev.skyphi.Models.Pickups.ActivePickup;
 import dev.skyphi.Models.Pickups.Pickup;
 
 public class CTFPlayer {
@@ -92,6 +93,11 @@ public class CTFPlayer {
                 item.setAmount(0);
             }
         }
+    }
+
+    public void addPickup(Pickup pickup) {
+        if(pickup instanceof ActivePickup) SootCTF.PICKUP_MANAGER.addActivePickup((ActivePickup)pickup);
+        player.getInventory().addItem(pickup.getActualItem());
     }
 
 }

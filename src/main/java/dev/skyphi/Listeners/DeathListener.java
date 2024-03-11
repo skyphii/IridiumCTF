@@ -16,6 +16,7 @@ import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Pickups.Simple.Arrows;
 
 public class DeathListener implements Listener {
     
@@ -60,6 +61,7 @@ public class DeathListener implements Listener {
                 player.teleport(ctfp.getTeam().getFlag().getLocation());
                 player.setGameMode(gm);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
+                ctfp.addPickup(new Arrows());
             }
         }.runTaskLater(SootCTF.INSTANCE, 20*CTFConfig.RESPAWN_TIMER);
     }

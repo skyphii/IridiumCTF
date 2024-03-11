@@ -45,6 +45,6 @@ public abstract class Pickup {
     public Item getSpawnedItem() { return spawnedItem; }
     public void setSpawnedItem(Item spawnedItem) { this.spawnedItem = spawnedItem; }
 
-    public ItemStack getActualItem() { return actualItem; }
+    public ItemStack getActualItem() { return actualItem != null ? actualItem : itemStack; }
 
 }
