@@ -54,7 +54,7 @@ public class CTFTeam {
 
     public int getScore() { return score; }
     public void addPoint(CTFPlayer flagCarrier) {
-        if(++score == SootCTF.FLAGS_TO_WIN) {
+        if(++score == CTFConfig.FLAGS_TO_WIN) {
             CTFUtils.announceWinner(this);
             CTFUtils.teleportTeamsToWorldSpawn();
             CTFUtils.stop();
@@ -171,7 +171,7 @@ public class CTFTeam {
         playerList.values().forEach(ctfp -> {
             if(ctfp.hasFlag()) {
                 ctfp.setFlag(false);
-                ctfp.getEnemyTeam().getFlag().setType(SootCTF.FLAG_TYPE);
+                ctfp.getEnemyTeam().getFlag().setType(CTFConfig.FLAG_TYPE);
             }
         });
         playerList.clear();

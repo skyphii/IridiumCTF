@@ -18,6 +18,7 @@ import dev.skyphi.Listeners.DeathListener;
 import dev.skyphi.Listeners.FlagListener;
 import dev.skyphi.Listeners.SetupListener;
 import dev.skyphi.Listeners.SetupListener.SetupType;
+import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
 import dev.skyphi.Models.Pair;
@@ -106,7 +107,7 @@ public class SootCtfCommand implements CommandExecutor {
             // replace flag if the swapped player is holding it (c'mon mods, really?)
             if(ctfp.hasFlag()) {
                 ctfp.setFlag(false);
-                ctfp.getEnemyTeam().getFlag().setType(SootCTF.FLAG_TYPE);
+                ctfp.getEnemyTeam().getFlag().setType(CTFConfig.FLAG_TYPE);
                 ctfp.getTeam().announce(ChatColor.RED, "The enemy flag was returned to their base!");
                 ctfp.getEnemyTeam().announce(ChatColor.GREEN, "Your flag was returned to base!");
             }
@@ -134,10 +135,9 @@ public class SootCtfCommand implements CommandExecutor {
             }
 
             player.sendMessage(ChatColor.AQUA + "Number of captures needed to win is now " + num + ".");
-            SootCTF.FLAGS_TO_WIN = num;
             
-            SootCTF.INSTANCE.getConfig().set("flags_to_win", num);
-            SootCTF.INSTANCE.saveConfig();
+            CTFConfig.FLAGS_TO_WIN = num;
+            CTFConfig.save();
         }else if(args[0].equalsIgnoreCase("spawnrate")) {
             int num = -1;
             try {
@@ -154,9 +154,6 @@ public class SootCtfCommand implements CommandExecutor {
             player.sendMessage(ChatColor.AQUA + "Items will now spawn every " + num + " seconds. (does not apply to active games)");
 
             SootCTF.PICKUP_MANAGER.setItemSpawnRate(num);
-
-            SootCTF.INSTANCE.getConfig().set("item_spawn_rate", num);
-            SootCTF.INSTANCE.saveConfig();
         }
 
         return true;
@@ -171,7 +168,7 @@ public class SootCtfCommand implements CommandExecutor {
         players.removeIf(p -> p.getGameMode() != GameMode.ADVENTURE && p.getGameMode() != GameMode.SURVIVAL);
         Collections.shuffle(players);
 
-        if(SootCTF.PAIR_NEARBY_PLAYERS) {
+        if(CTFConfig.PAIR_NEARBY_PLAYERS) {
             // group players of 2 that are very close together to attempt to put them on the same team
             List<Pair<Player, Player>> playerPairs = new ArrayList<>();
             List<Player> paired = new ArrayList<>();
@@ -202,7 +199,7 @@ public class SootCtfCommand implements CommandExecutor {
             team.addPlayer(new CTFPlayer(p, team));
         }
 
-        if(!SootCTF.STRICT_PAIRING) {
+        if(!CTFConfig.STRICT_PAIRING) {
             while(Math.abs(team1.getPlayerCount() - team2.getPlayerCount()) > 2) {
                 CTFTeam larger = team1.getPlayerCount() > team2.getPlayerCount() ? team1 : team2;
                 CTFTeam smaller = larger == team1 ? team2 : team1;

@@ -1,6 +1,7 @@
 package dev.skyphi.Listeners;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import dev.skyphi.SootCTF;
+import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.Pickups.ItemSpawner;
 
 public class SetupListener implements Listener {
@@ -42,15 +44,19 @@ public class SetupListener implements Listener {
             SootCTF.PICKUP_MANAGER.addSpawner(new ItemSpawner(block));
             player.sendMessage(ChatColor.AQUA + "Item spawner set!");
         }else {
-            String teamNum = (setupType == SetupType.FLAG_1 ? "one" : "two");
-            String node = "teams." + teamNum + ".flag";
-            SootCTF.INSTANCE.getConfig().set(node, block.getLocation());
-            SootCTF.INSTANCE.saveConfig();
+            Location newFlagLoc = block.getLocation();
 
             // set flag block on appropriate team
             (setupType == SetupType.FLAG_1 ? SootCTF.TEAM1 : SootCTF.TEAM2).setFlag(block);
 
-            player.sendMessage(ChatColor.AQUA + "Flag set for team " + teamNum + "!");
+            player.sendMessage(ChatColor.AQUA + "Flag set for team "
+                            + (setupType == SetupType.FLAG_1 ? "one" : "two")
+                            + "!");
+            
+            // save to config
+            if(setupType == SetupType.FLAG_1) CTFConfig.FLAG_ONE = newFlagLoc;
+            else if(setupType == SetupType.FLAG_2) CTFConfig.FLAG_TWO = newFlagLoc;
+            CTFConfig.save();
         }
 
         HandlerList.unregisterAll(this);

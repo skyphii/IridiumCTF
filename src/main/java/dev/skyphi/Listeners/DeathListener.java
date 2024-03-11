@@ -14,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
+import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 
 public class DeathListener implements Listener {
@@ -43,7 +44,7 @@ public class DeathListener implements Listener {
         // replace flag
         if(ctfp.hasFlag()) {
             ctfp.setFlag(false);
-            ctfp.getEnemyTeam().getFlag().setType(SootCTF.FLAG_TYPE);
+            ctfp.getEnemyTeam().getFlag().setType(CTFConfig.FLAG_TYPE);
             ctfp.getTeam().announce(ChatColor.RED, "The enemy flag was returned to their base!");
             ctfp.getEnemyTeam().announce(ChatColor.GREEN, "Your flag was returned to base!");
         }
@@ -60,7 +61,7 @@ public class DeathListener implements Listener {
                 player.setGameMode(gm);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
             }
-        }.runTaskLater(SootCTF.INSTANCE, 20*SootCTF.RESPAWN_TIMER);
+        }.runTaskLater(SootCTF.INSTANCE, 20*CTFConfig.RESPAWN_TIMER);
     }
 
 }

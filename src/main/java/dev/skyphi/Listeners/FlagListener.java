@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import dev.skyphi.CTFUtils;
-import dev.skyphi.SootCTF;
+import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
 
@@ -27,8 +27,8 @@ public class FlagListener implements Listener {
         Block enemyFlag = enemyTeam.getFlag();
 
         if(!ctfp.hasFlag()) {   // no flag - check if player clicked enemy flag
-            if(block.getLocation().equals(enemyFlag.getLocation()) && block.getType() == SootCTF.FLAG_TYPE) {
-                enemyFlag.setType(SootCTF.MISSING_FLAG_TYPE);
+            if(block.getLocation().equals(enemyFlag.getLocation()) && block.getType() == CTFConfig.FLAG_TYPE) {
+                enemyFlag.setType(CTFConfig.MISSING_FLAG_TYPE);
                 ctfp.setFlag(true);
 
                 // play sounds
@@ -43,8 +43,8 @@ public class FlagListener implements Listener {
         }else {                 // has flag - check if player clicked team flag
             Block teamFlag = ctfp.getTeam().getFlag();
 
-            if(block.getLocation().equals(teamFlag.getLocation()) && block.getType() == SootCTF.FLAG_TYPE) {
-                enemyFlag.setType(SootCTF.FLAG_TYPE);
+            if(block.getLocation().equals(teamFlag.getLocation()) && block.getType() == CTFConfig.FLAG_TYPE) {
+                enemyFlag.setType(CTFConfig.FLAG_TYPE);
                 ctfp.setFlag(false);
                 team.addPoint(ctfp);
 

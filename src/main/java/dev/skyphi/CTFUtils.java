@@ -2,10 +2,8 @@ package dev.skyphi;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +14,7 @@ import org.bukkit.scoreboard.Team;
 
 import dev.skyphi.Listeners.DeathListener;
 import dev.skyphi.Listeners.FlagListener;
+import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
 
@@ -135,16 +134,18 @@ public class CTFUtils {
             DEATH_LISTENER = null;
         }
 
-        SootCTF.TEAM1.removePickups();
-        SootCTF.TEAM2.removePickups();
-
         SootCTF.PICKUP_MANAGER.stopSpawning();
 
-        SootCTF.TEAM1.clearPlayers();
-        SootCTF.TEAM2.clearPlayers();
-        
-        SootCTF.TEAM1.clearMobs();
-        SootCTF.TEAM2.clearMobs();
+        if(SootCTF.TEAM1 != null && SootCTF.TEAM2 != null) {
+            SootCTF.TEAM1.removePickups();
+            SootCTF.TEAM2.removePickups();
+
+            SootCTF.TEAM1.clearPlayers();
+            SootCTF.TEAM2.clearPlayers();
+            
+            SootCTF.TEAM1.clearMobs();
+            SootCTF.TEAM2.clearMobs();
+        }
 
         // unregister scoreboard teams
         for(Team team : CTFUtils.SCOREBOARD.getTeams()) {
@@ -153,15 +154,11 @@ public class CTFUtils {
     }
 
     public static void initTeams() {
-        FileConfiguration config = SootCTF.INSTANCE.getConfig();
+        Block flag1 = CTFConfig.FLAG_ONE != null ? CTFConfig.FLAG_ONE.getBlock() : null;
+        SootCTF.TEAM1 = new CTFTeam(CTFConfig.TEAM_ONE_NAME, flag1);
 
-        Location loc1 = config.getLocation("teams.one.flag");
-        Block block1 = loc1 != null ? loc1.getBlock() : null;
-        SootCTF.TEAM1 = new CTFTeam(config.getString("teams.one.name"), block1);
-
-        Location loc2 = config.getLocation("teams.two.flag");
-        Block block2 = loc2 != null ? loc2.getBlock() : null;
-        SootCTF.TEAM2 = new CTFTeam(config.getString("teams.two.name"), block2);
+        Block flag2 = CTFConfig.FLAG_TWO != null ? CTFConfig.FLAG_TWO.getBlock() : null;
+        SootCTF.TEAM2 = new CTFTeam(CTFConfig.TEAM_TWO_NAME, flag2);
 
         // Setup scoreboard teams
         Team scoreboardTeam1 = SCOREBOARD.registerNewTeam(SootCTF.TEAM1.getName().replace(' ', '_'));

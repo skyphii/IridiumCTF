@@ -1,7 +1,8 @@
-main: dev.skyphi.SootCTF
 name: SootCTF
+author: skyphi
 version: 1.3.3
 api-version: 1.20
+main: dev.skyphi.SootCTF
 depend: [ProtocolLib]
 commands:
   sootctf:

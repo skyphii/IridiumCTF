@@ -23,6 +23,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
+import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.Pickups.Active.GoldenArrow;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
@@ -117,11 +118,7 @@ public class PickupManager implements Listener {
     }
 
     public void saveSpawners() {
-        FileConfiguration config = SootCTF.INSTANCE.getConfig();
-        for(int i = 0; i < spawners.size(); i++) {
-            config.set("item_spawners."+i, spawners.get(i).getBlock().getLocation());
-        }
-        SootCTF.INSTANCE.saveConfig();
+        CTFConfig.saveItemSpawners(spawners);
     }
 
     public void addSpawner(ItemSpawner spawner) {
@@ -131,6 +128,8 @@ public class PickupManager implements Listener {
 
     public void setItemSpawnRate(int seconds) {
         SPAWN_PERIOD = seconds;
+        CTFConfig.ITEM_SPAWN_RATE = seconds;
+        CTFConfig.save();
     }
 
     private Pickup getRandomPickup() {
