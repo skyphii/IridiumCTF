@@ -5,11 +5,15 @@ import org.bukkit.GameMode;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
@@ -41,6 +45,7 @@ public class DeathListener implements Listener {
                 player.sendTitle("", "", -1, -1, -1);
             }
         }.runTaskLater(SootCTF.INSTANCE, 80);
+        announceDeath(ctfp, event);
 
         // replace flag
         if(ctfp.hasFlag()) {
@@ -65,5 +70,49 @@ public class DeathListener implements Listener {
             }
         }.runTaskLater(SootCTF.INSTANCE, 20*CTFConfig.RESPAWN_TIMER);
     }
+
+    private void announceDeath(CTFPlayer deadPlayer, EntityDamageEvent edEvent) {
+        EntityDamageByEntityEvent edbeEvent = null;
+        String nameKiller = "????";
+        if(edEvent instanceof EntityDamageByEntityEvent) {
+            edbeEvent = (EntityDamageByEntityEvent)edEvent;
+            Entity damager = edbeEvent.getDamager();
+            if(damager instanceof Projectile) {
+                ProjectileSource shooter = ((Projectile)damager).getShooter();
+                if(shooter instanceof Entity) damager = (Entity)shooter;
+            }
+            ChatColor colour = ChatColor.GRAY;
+            CTFPlayer ctfpDamager = (damager instanceof Player) ? CTFUtils.getCTFPlayer((Player)damager) : null;
+            if(ctfpDamager != null) colour = CTFUtils.getTeamChatColour(ctfpDamager.getTeam());
+            nameKiller = colour+""+ChatColor.BOLD + damager.getName();
+        }
+
+        String nameDead = CTFUtils.getTeamChatColour(deadPlayer.getTeam())+""+ChatColor.BOLD + deadPlayer.getPlayerName();
+
+        String deathMsg = "";
+        switch(edEvent.getCause()) {
+            default:
+                deathMsg = nameDead + ChatColor.GRAY + " died.";
+                break;
+            case ENTITY_ATTACK:
+                deathMsg = nameDead + ChatColor.GRAY + " was " + KILL_SYNONYMS[(int)(Math.random()*KILL_SYNONYMS.length)] 
+                    + " by " + nameKiller;
+                break;
+            case BLOCK_EXPLOSION:
+                deathMsg = nameDead + ChatColor.RED + " was blown up by " + nameKiller;
+                break;
+            case PROJECTILE:
+                deathMsg = nameDead + ChatColor.GRAY+""+ChatColor.ITALIC + " was shot by " + nameKiller;
+                break;
+        }
+
+        CTFUtils.broadcast(String.format(deathMsg, deadPlayer.getPlayerName()), false);
+    }
+
+    private final String[] KILL_SYNONYMS = {
+        "bonked", "bopped", "sent back to spawn", "stabbed", "slammed", "poofed away",
+        "blasted", "slapped", "stomped on", "hit too much", "lightly salted", "struck down",
+        "crushed", "halted"
+    };
 
 }

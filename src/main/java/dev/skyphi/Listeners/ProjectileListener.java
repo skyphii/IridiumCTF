@@ -1,5 +1,6 @@
 package dev.skyphi.Listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Egg;
@@ -60,7 +61,7 @@ public class ProjectileListener implements Listener {
             // add team chestplate
             entity.getEquipment().setChestplate(CTFUtils.getTeamChestplate(ctfp.getTeam()));
             // add coloured nametag
-            entity.setCustomName(CTFUtils.getTeamChatColour(ctfp.getTeam())+ctfp.getTeam().getName()+" DEFENDER");
+            entity.setCustomName(CTFUtils.getTeamChatColour(ctfp.getTeam())+""+ChatColor.BOLD+ctfp.getTeam().getName()+" DEFENDER");
             entity.setCustomNameVisible(true);
 
             event.setCancelled(true);

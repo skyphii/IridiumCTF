@@ -10,6 +10,7 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import dev.skyphi.CTFUtils;
 import dev.skyphi.SootCTF;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
@@ -35,6 +36,7 @@ public class ThrowTnt extends ActivePickup {
         TNTPrimed tnt = (TNTPrimed)owner.getWorld().spawnEntity(spawnLoc, EntityType.PRIMED_TNT);
         tnt.setVelocity(dir.multiply(SPEED));
         tnt.setFuseTicks(FUSE_TICKS);
+        tnt.setCustomName(CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(owner).getTeam())+""+ChatColor.BOLD + owner.getName() + "'s TNT");
 
         owner.getWorld().playSound(spawnLoc, Sound.ENTITY_TNT_PRIMED, 1, 1);
     }
