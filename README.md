@@ -1,6 +1,6 @@
 # SootCTF
 
-A new SootMC event plugin for **Capture the Flag**!
+A Minecraft/Spigot event plugin for **Capture the Flag**! This was created for a community server (that has since shut down) and is not maintained.
 
 # In-Game Setup
 - Use `/ctf flag <1/2>` to set each team's flag block. You will be prompted to click the block after running the command.
