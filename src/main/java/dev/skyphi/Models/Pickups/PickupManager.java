@@ -35,6 +35,7 @@ import dev.skyphi.Models.Pickups.Simple.Freezeball;
 import dev.skyphi.Models.Pickups.Simple.GoldenApple;
 import dev.skyphi.Models.Pickups.Simple.MobEgg;
 import dev.skyphi.Models.Pickups.Simple.SlownessArrows;
+import dev.skyphi.Models.Pickups.Simple.WindCharges;
 
 public class PickupManager implements Listener {
     
@@ -42,7 +43,7 @@ public class PickupManager implements Listener {
     private static int SPAWN_PERIOD = 20;       // in seconds
 
     private static final List<Class<? extends Pickup>> PICKUPS_COMMON = Arrays.asList(
-        JumpBoost.class, ThrowTnt.class, SpeedBoost.class, GoldenApple.class
+        JumpBoost.class, ThrowTnt.class, SpeedBoost.class, GoldenApple.class, WindCharges.class
     );
 
     private static final List<Class<? extends Pickup>> PICKUPS_RARE = Arrays.asList(
