@@ -104,6 +104,9 @@ public class DeathListener implements Listener {
             case PROJECTILE:
                 deathMsg = nameDead + ChatColor.GRAY+""+ChatColor.ITALIC + " was shot by " + nameKiller;
                 break;
+            case THORNS:
+                deathMsg = nameDead + ChatColor.DARK_AQUA + " was killed trying to hurt " + ChatColor.BOLD + "Guardian";
+                break;
         }
 
         CTFUtils.broadcast(String.format(deathMsg, deadPlayer.getPlayerName()), false);
@@ -112,7 +115,7 @@ public class DeathListener implements Listener {
     private final String[] KILL_SYNONYMS = {
         "bonked", "bopped", "sent back to spawn", "stabbed", "slammed", "poofed away",
         "blasted", "slapped", "stomped on", "hit too much", "lightly salted", "struck down",
-        "crushed", "halted"
+        "crushed", "halted", "tickled", "dismissed", "unalived", "taken down"
     };
 
 }

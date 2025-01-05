@@ -1,7 +1,10 @@
 package dev.skyphi.Listeners;
 
 import org.bukkit.ChatColor;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Guardian;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,21 +17,21 @@ public class GoldenArrowListener implements Listener {
     
     @EventHandler
     public void on(ProjectileHitEvent event) {
-        if(event.getEntityType() != EntityType.SPECTRAL_ARROW || !(event.getEntity().getShooter() instanceof Player)) return;
-        if(event.getHitEntity() == null || !(event.getHitEntity() instanceof LivingEntity)) {
+        if (event.getEntityType() != EntityType.SPECTRAL_ARROW || !(event.getEntity().getShooter() instanceof Player)) return;
+        if (event.getHitEntity() == null || !(event.getHitEntity() instanceof LivingEntity)) {
             event.getEntity().remove();
             return;
         }
 
         final Player shooter = (Player)event.getEntity().getShooter();
         final LivingEntity hitEntity = (LivingEntity)event.getHitEntity();
-        if(hitEntity == null) return;
+        if (hitEntity == null) return;
 
         event.setCancelled(true);
 
         hitEntity.damage(1000, shooter);
 
-        if(hitEntity instanceof Player) {
+        if (hitEntity instanceof Player) {
             final Player hitPlayer = (Player)hitEntity;
             
             ChatColor shooterColour = CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(shooter).getTeam());
@@ -39,6 +42,21 @@ public class GoldenArrowListener implements Listener {
                             + ChatColor.AQUA+" with a "
                             + ChatColor.GOLD+ChatColor.BOLD + "Golden Arrow"
                             + ChatColor.AQUA+"!"
+                            , false);
+        } else if (hitEntity instanceof Guardian) {
+            shooter.setNoDamageTicks(0);
+            DamageSource ds = DamageSource.builder(DamageType.THORNS)
+                .withCausingEntity(hitEntity)
+                .withDamageLocation(hitEntity.getLocation())
+                .withDirectEntity(hitEntity)
+                .build();
+            shooter.damage(1000, ds);
+
+            ChatColor shooterColour = CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(shooter).getTeam());
+            
+            CTFUtils.broadcast(shooterColour+""+ChatColor.BOLD+shooter.getName() + ChatColor.AQUA+" shot a Guardian with a "
+                            + ChatColor.GOLD+ChatColor.BOLD + "Golden Arrow"
+                            + ChatColor.RED+" (ouch!)"
                             , false);
         }
     }
