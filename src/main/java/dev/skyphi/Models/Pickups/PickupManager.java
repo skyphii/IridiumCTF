@@ -78,7 +78,7 @@ public class PickupManager implements Listener {
                 spawners.forEach(spawner -> {
                     Pickup pickup = getRandomPickup();
                     if(pickup == null) {
-                        IridiumCTF.INSTANCE.getLogger().log(Level.WARNING, "getRandomPickup() returned null in SpawnerManager.java");
+                        IridiumCTF.INSTANCE.getLogger().log(Level.SEVERE, "getRandomPickup() returned null in PickupManager");
                         return;
                     }
                     
