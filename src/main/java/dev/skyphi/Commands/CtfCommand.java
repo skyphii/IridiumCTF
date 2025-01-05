@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
 import dev.skyphi.CTFUtils;
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Listeners.DeathListener;
 import dev.skyphi.Listeners.FlagListener;
 import dev.skyphi.Listeners.SetupListener;
@@ -23,7 +23,7 @@ import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
 import dev.skyphi.Models.Pair;
 
-public class SootCtfCommand implements CommandExecutor {
+public class CtfCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
@@ -44,23 +44,23 @@ public class SootCtfCommand implements CommandExecutor {
                 CTFUtils.stop();
                 CTFUtils.initTeams();
                 makeTeams();
-                SootCTF.TEAM1.giveChestplates();
-                SootCTF.TEAM2.giveChestplates();
+                IridiumCTF.TEAM1.giveChestplates();
+                IridiumCTF.TEAM2.giveChestplates();
 
                 if(CTFUtils.FLAG_LISTENER != null) HandlerList.unregisterAll(CTFUtils.FLAG_LISTENER);
                 if(CTFUtils.DEATH_LISTENER != null) HandlerList.unregisterAll(CTFUtils.DEATH_LISTENER);
                 CTFUtils.FLAG_LISTENER = new FlagListener();
                 CTFUtils.DEATH_LISTENER = new DeathListener();
-                SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.FLAG_LISTENER, SootCTF.INSTANCE);
-                SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.DEATH_LISTENER, SootCTF.INSTANCE);
+                IridiumCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.FLAG_LISTENER, IridiumCTF.INSTANCE);
+                IridiumCTF.INSTANCE.getServer().getPluginManager().registerEvents(CTFUtils.DEATH_LISTENER, IridiumCTF.INSTANCE);
 
-                SootCTF.TEAM1.tpTeamToFlag();
-                SootCTF.TEAM2.tpTeamToFlag();
-                SootCTF.PICKUP_MANAGER.startSpawning();
+                IridiumCTF.TEAM1.tpTeamToFlag();
+                IridiumCTF.TEAM2.tpTeamToFlag();
+                IridiumCTF.PICKUP_MANAGER.startSpawning();
                 CTFUtils.broadcast("Game started!", true);
             }else if(args[0].equalsIgnoreCase("stop")) {
                 // stop game
-                SootCTF.PICKUP_MANAGER.stopSpawning();
+                IridiumCTF.PICKUP_MANAGER.stopSpawning();
                 CTFUtils.teleportTeamsToWorldSpawn();
                 CTFUtils.stop();
                 CTFUtils.broadcast("Game stopped!", true);
@@ -93,7 +93,7 @@ public class SootCtfCommand implements CommandExecutor {
 
             player.sendMessage(ChatColor.AQUA + "Click the flag block for team " + team + "'s flag.");
         }else if(args[0].equalsIgnoreCase("swap")) {
-            Player playerToSwap = SootCTF.INSTANCE.getServer().getPlayer(args[1]);
+            Player playerToSwap = IridiumCTF.INSTANCE.getServer().getPlayer(args[1]);
             if(playerToSwap == null) {
                 player.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
@@ -153,18 +153,18 @@ public class SootCtfCommand implements CommandExecutor {
 
             player.sendMessage(ChatColor.AQUA + "Items will now spawn every " + num + " seconds. (does not apply to active games)");
 
-            SootCTF.PICKUP_MANAGER.setItemSpawnRate(num);
+            IridiumCTF.PICKUP_MANAGER.setItemSpawnRate(num);
         }
 
         return true;
     }
 
     private void makeTeams() {
-        CTFTeam team1 = SootCTF.TEAM1;
-        CTFTeam team2 = SootCTF.TEAM2;
+        CTFTeam team1 = IridiumCTF.TEAM1;
+        CTFTeam team2 = IridiumCTF.TEAM2;
 
         // get all players that are in adventure/survival mode and shuffle the list for randomness
-        List<Player> players = new ArrayList<>(SootCTF.INSTANCE.getServer().getOnlinePlayers());
+        List<Player> players = new ArrayList<>(IridiumCTF.INSTANCE.getServer().getOnlinePlayers());
         players.removeIf(p -> p.getGameMode() != GameMode.ADVENTURE && p.getGameMode() != GameMode.SURVIVAL);
         Collections.shuffle(players);
 

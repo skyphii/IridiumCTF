@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 
 public class FallListener implements Listener {
     
@@ -35,7 +35,7 @@ public class FallListener implements Listener {
             public void run() {
                 players.remove(player);
             }
-        }.runTaskLater(SootCTF.INSTANCE, 20*4);
+        }.runTaskLater(IridiumCTF.INSTANCE, 20*4);
     }
 
 }

@@ -22,7 +22,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.Pickups.Active.GoldenArrow;
@@ -54,7 +54,7 @@ public class PickupManager implements Listener {
 
     public void startSpawning() {
         if(spawners.size() == 0) {
-            SootCTF.INSTANCE.getLogger().log(Level.WARNING, "No item spawners set! There will be no item spawning for this game.");
+            IridiumCTF.INSTANCE.getLogger().log(Level.WARNING, "No item spawners set! There will be no item spawning for this game.");
             return;
         }
         if(spawnRunnable != null) spawnRunnable.cancel();
@@ -67,7 +67,7 @@ public class PickupManager implements Listener {
                 spawners.forEach(spawner -> {
                     Pickup pickup = getRandomPickup();
                     if(pickup == null) {
-                        SootCTF.INSTANCE.getLogger().log(Level.WARNING, "getRandomPickup() returned null in SpawnerManager.java");
+                        IridiumCTF.INSTANCE.getLogger().log(Level.WARNING, "getRandomPickup() returned null in SpawnerManager.java");
                         return;
                     }
                     
@@ -80,9 +80,9 @@ public class PickupManager implements Listener {
                 });
             }
         };
-        spawnRunnable.runTaskTimer(SootCTF.INSTANCE, 20*INITIAL_DELAY, 20*SPAWN_PERIOD);
+        spawnRunnable.runTaskTimer(IridiumCTF.INSTANCE, 20*INITIAL_DELAY, 20*SPAWN_PERIOD);
 
-        SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(this, SootCTF.INSTANCE);
+        IridiumCTF.INSTANCE.getServer().getPluginManager().registerEvents(this, IridiumCTF.INSTANCE);
 
         particleRunnable = new BukkitRunnable() {
             @Override
@@ -92,7 +92,7 @@ public class PickupManager implements Listener {
                 });
             }
         };
-        particleRunnable.runTaskTimer(SootCTF.INSTANCE, 20*INITIAL_DELAY, 10);
+        particleRunnable.runTaskTimer(IridiumCTF.INSTANCE, 20*INITIAL_DELAY, 10);
     }
 
     public void stopSpawning() {
@@ -109,7 +109,7 @@ public class PickupManager implements Listener {
     }
 
     public void loadSpawners() {
-        FileConfiguration config = SootCTF.INSTANCE.getConfig();
+        FileConfiguration config = IridiumCTF.INSTANCE.getConfig();
         int index = 1;
         Location loc = config.getLocation("item_spawners.0");
         while(loc != null) {

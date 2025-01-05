@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Listeners.FallListener;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
@@ -19,7 +19,7 @@ public class SpeedBoost extends ActivePickup {
         name = ChatColor.AQUA+""+ChatColor.BOLD+"Zoom!";
         description = ChatColor.AQUA+"Right click to " + ChatColor.ITALIC + "zoom! ";
         itemStack = new ItemStack(Material.SUGAR, 3);
-        key = new NamespacedKey(SootCTF.INSTANCE, "SpeedBoost");
+        key = new NamespacedKey(IridiumCTF.INSTANCE, "SpeedBoost");
         init();
     }
 

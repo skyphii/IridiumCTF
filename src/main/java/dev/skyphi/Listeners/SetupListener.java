@@ -9,7 +9,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.Pickups.ItemSpawner;
 
@@ -28,7 +28,7 @@ public class SetupListener implements Listener {
         this.player = player;
         this.setupType = setupType;
 
-        SootCTF.INSTANCE.getServer().getPluginManager().registerEvents(this, SootCTF.INSTANCE);
+        IridiumCTF.INSTANCE.getServer().getPluginManager().registerEvents(this, IridiumCTF.INSTANCE);
     }
 
     public Player getPlayer() { return player; }
@@ -41,13 +41,13 @@ public class SetupListener implements Listener {
 
         if(setupType == SetupType.SPAWNER) {
             // set item spawner
-            SootCTF.PICKUP_MANAGER.addSpawner(new ItemSpawner(block));
+            IridiumCTF.PICKUP_MANAGER.addSpawner(new ItemSpawner(block));
             player.sendMessage(ChatColor.AQUA + "Item spawner set!");
         }else {
             Location newFlagLoc = block.getLocation();
 
             // set flag block on appropriate team
-            (setupType == SetupType.FLAG_1 ? SootCTF.TEAM1 : SootCTF.TEAM2).setFlag(block);
+            (setupType == SetupType.FLAG_1 ? IridiumCTF.TEAM1 : IridiumCTF.TEAM2).setFlag(block);
 
             player.sendMessage(ChatColor.AQUA + "Flag set for team "
                             + (setupType == SetupType.FLAG_1 ? "one" : "two")

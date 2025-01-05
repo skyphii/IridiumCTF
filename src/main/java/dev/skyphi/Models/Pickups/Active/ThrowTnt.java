@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import dev.skyphi.CTFUtils;
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
 public class ThrowTnt extends ActivePickup {
@@ -23,7 +23,7 @@ public class ThrowTnt extends ActivePickup {
         name = ChatColor.RED+""+ChatColor.BOLD+"Throwable TNT";
         description = ChatColor.RED+"Right click to toss TNT!";
         itemStack = new ItemStack(Material.TNT);
-        key = new NamespacedKey(SootCTF.INSTANCE, "TNT");
+        key = new NamespacedKey(IridiumCTF.INSTANCE, "TNT");
         init();
     }
 

@@ -6,7 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.Pickups.ItemSpawner;
 
 public class CTFConfig {
@@ -25,9 +25,9 @@ public class CTFConfig {
     public static Location FLAG_ONE, FLAG_TWO;
 
     public static void load() {
-        SootCTF.INSTANCE.saveDefaultConfig();
+        IridiumCTF.INSTANCE.saveDefaultConfig();
 
-        FileConfiguration config = SootCTF.INSTANCE.getConfig();
+        FileConfiguration config = IridiumCTF.INSTANCE.getConfig();
 
         // flag block type
         Material flagMat = Material.getMaterial(config.getString("flag_type"));
@@ -42,8 +42,8 @@ public class CTFConfig {
         FLAG_TWO = config.getLocation("teams.two.flag");
 
         // item spawners
-        SootCTF.PICKUP_MANAGER.loadSpawners();
-        SootCTF.PICKUP_MANAGER.setItemSpawnRate(config.getInt("item_spawn_rate"));
+        IridiumCTF.PICKUP_MANAGER.loadSpawners();
+        IridiumCTF.PICKUP_MANAGER.setItemSpawnRate(config.getInt("item_spawn_rate"));
 
         // configurable options
         PAIR_NEARBY_PLAYERS = config.getBoolean("pair_nearby_players");
@@ -53,7 +53,7 @@ public class CTFConfig {
     }
 
     public static void save() {
-        FileConfiguration config = SootCTF.INSTANCE.getConfig();
+        FileConfiguration config = IridiumCTF.INSTANCE.getConfig();
 
         // captures required to win
         config.set("flags_to_win", FLAGS_TO_WIN);
@@ -65,16 +65,16 @@ public class CTFConfig {
         // item spawnrate
         config.set("item_spawn_rate", ITEM_SPAWN_RATE);
 
-        SootCTF.INSTANCE.saveConfig();
+        IridiumCTF.INSTANCE.saveConfig();
     }
 
 
     public static void saveItemSpawners(List<ItemSpawner> itemSpawners) {
-        FileConfiguration config = SootCTF.INSTANCE.getConfig();
+        FileConfiguration config = IridiumCTF.INSTANCE.getConfig();
         for(int i = 0; i < itemSpawners.size(); i++) {
             config.set("item_spawners."+i, itemSpawners.get(i).getBlock().getLocation());
         }
-        SootCTF.INSTANCE.saveConfig();
+        IridiumCTF.INSTANCE.saveConfig();
     }
 
 }

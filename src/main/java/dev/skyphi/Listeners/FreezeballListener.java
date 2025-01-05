@@ -9,7 +9,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.CTFPlayer;
 
 public class FreezeballListener implements Listener {
@@ -38,14 +38,14 @@ public class FreezeballListener implements Listener {
                 hitEntity.setNoDamageTicks(0);
 			}
         };
-        hurtRunnable.runTaskTimer(SootCTF.INSTANCE, 0, 2);
+        hurtRunnable.runTaskTimer(IridiumCTF.INSTANCE, 0, 2);
 
         new BukkitRunnable() {
 			@Override
 			public void run() {
 				hurtRunnable.cancel();
 			}
-        }.runTaskLater(SootCTF.INSTANCE, 16);
+        }.runTaskLater(IridiumCTF.INSTANCE, 16);
     }
 
 }

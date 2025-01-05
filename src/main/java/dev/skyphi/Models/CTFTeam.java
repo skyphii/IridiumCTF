@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
 import dev.skyphi.CTFUtils;
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.Pickups.Simple.Arrows;
 
 public class CTFTeam {
@@ -107,7 +107,7 @@ public class CTFTeam {
                     ctfp.getPlayer().sendTitle("", "", -1, -1, -1);
                 }
             }
-        }.runTaskLater(SootCTF.INSTANCE, 80);
+        }.runTaskLater(IridiumCTF.INSTANCE, 80);
     }
 
     public void playSound(Sound sound, float volume, float pitch) {
@@ -127,7 +127,7 @@ public class CTFTeam {
 
     public void tpTeamToFlag() {
         removePickups();
-        SootCTF.PICKUP_MANAGER.clearSpawnedPickups();
+        IridiumCTF.PICKUP_MANAGER.clearSpawnedPickups();
 
         Location baseLoc = flag.getLocation().clone().add(0.5, 1, 0.5);
         int x = -2;

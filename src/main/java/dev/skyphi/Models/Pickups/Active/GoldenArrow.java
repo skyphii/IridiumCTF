@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.CrossbowMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
 public class GoldenArrow extends ActivePickup {
@@ -22,7 +22,7 @@ public class GoldenArrow extends ActivePickup {
         name = ChatColor.GOLD+""+ChatColor.BOLD+"Golden Arrow";
         description = ChatColor.GOLD+"One shot. One opportunity.";
         itemStack = new ItemStack(Material.SPECTRAL_ARROW);
-        key = new NamespacedKey(SootCTF.INSTANCE, "GoldenArrow");
+        key = new NamespacedKey(IridiumCTF.INSTANCE, "GoldenArrow");
 
         actualItem = new ItemStack(Material.CROSSBOW);
         CrossbowMeta meta = (CrossbowMeta)actualItem.getItemMeta();

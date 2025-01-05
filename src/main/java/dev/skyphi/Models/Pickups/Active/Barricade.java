@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.Pair;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
@@ -29,7 +29,7 @@ public class Barricade extends ActivePickup {
         name = ChatColor.DARK_PURPLE+""+ChatColor.BOLD+"Barricade";
         description = ChatColor.LIGHT_PURPLE+"Right click to spawn a wall in front of you!";
         itemStack = new ItemStack(Material.SHIELD);
-        key = new NamespacedKey(SootCTF.INSTANCE, "Barricade");
+        key = new NamespacedKey(IridiumCTF.INSTANCE, "Barricade");
         init();
     }
 
@@ -79,7 +79,7 @@ public class Barricade extends ActivePickup {
                     pair.getFirst().setType(pair.getSecond());
                 });
             }
-        }.runTaskLater(SootCTF.INSTANCE, 20*TIME);
+        }.runTaskLater(IridiumCTF.INSTANCE, 20*TIME);
     }
     
 }

@@ -8,7 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 import dev.skyphi.Listeners.FallListener;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
@@ -20,7 +20,7 @@ public class JumpBoost extends ActivePickup {
         name = ChatColor.AQUA+""+ChatColor.BOLD+"Jump!";
         description = ChatColor.AQUA+"Right click to jump high! You will not take fall damage.";
         itemStack = new ItemStack(Material.FEATHER);
-        key = new NamespacedKey(SootCTF.INSTANCE, "JumpBoost");
+        key = new NamespacedKey(IridiumCTF.INSTANCE, "JumpBoost");
         init();
     }
 

@@ -1,12 +1,12 @@
-name: SootCTF
+name: IridiumCTF
 author: skyphi
-version: 1.3.3
-api-version: 1.20
-main: dev.skyphi.SootCTF
+version: 1.4
+api-version: 1.21
+main: dev.skyphi.IridiumCTF
 depend: [ProtocolLib]
 commands:
-  sootctf:
-    description: Main SootCTF command
+  iridiumctf:
+    description: Main IridiumCTF command
     usage: /<command> <number>
     default: op
     aliases: [ctf]

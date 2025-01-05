@@ -22,43 +22,43 @@ import dev.skyphi.Models.CTFTeam;
 public class CTFUtils {
 
     private static final String PREFIX = ChatColor.GOLD+""+ChatColor.BOLD+"["
-                                        +ChatColor.AQUA+""+ChatColor.BOLD+"SootCTF"
+                                        +ChatColor.LIGHT_PURPLE+""+ChatColor.BOLD+"IridiumCTF"
                                         +ChatColor.GOLD+""+ChatColor.BOLD+"]"
                                         +ChatColor.AQUA+" ";
 
     public static FlagListener FLAG_LISTENER;
     public static DeathListener DEATH_LISTENER;
-    public static Scoreboard SCOREBOARD = SootCTF.INSTANCE.getServer().getScoreboardManager().getMainScoreboard();
+    public static Scoreboard SCOREBOARD = IridiumCTF.INSTANCE.getServer().getScoreboardManager().getMainScoreboard();
     
     public static CTFPlayer getCTFPlayer(Player player) {
-        CTFPlayer ctfp = SootCTF.TEAM1.getCtfPlayer(player);
+        CTFPlayer ctfp = IridiumCTF.TEAM1.getCtfPlayer(player);
         if(ctfp != null) return ctfp;
-        return SootCTF.TEAM2.getCtfPlayer(player);
+        return IridiumCTF.TEAM2.getCtfPlayer(player);
     }
 
     public static void broadcast(String msg, boolean usePrefix) {
-        SootCTF.INSTANCE.getServer().broadcastMessage((usePrefix?PREFIX:ChatColor.AQUA) + msg);
+        IridiumCTF.INSTANCE.getServer().broadcastMessage((usePrefix?PREFIX:ChatColor.AQUA) + msg);
     }
 
     public static void showScore(CTFPlayer flagCarrier) {
-        String scoreLine = getTeamChatColour(SootCTF.TEAM1)+""+ChatColor.BOLD + SootCTF.TEAM1.getScore()
+        String scoreLine = getTeamChatColour(IridiumCTF.TEAM1)+""+ChatColor.BOLD + IridiumCTF.TEAM1.getScore()
                         + ChatColor.GOLD+""+ChatColor.BOLD + " : "
-                        + getTeamChatColour(SootCTF.TEAM2)+""+ChatColor.BOLD + SootCTF.TEAM2.getScore();
+                        + getTeamChatColour(IridiumCTF.TEAM2)+""+ChatColor.BOLD + IridiumCTF.TEAM2.getScore();
         String subtitle = ChatColor.GOLD+""+ChatColor.BOLD + flagCarrier.getPlayerName()
                         + ChatColor.GOLD+" captured the flag!";
-        for(Player player : SootCTF.INSTANCE.getServer().getOnlinePlayers()) {
+        for(Player player : IridiumCTF.INSTANCE.getServer().getOnlinePlayers()) {
             player.sendTitle(scoreLine, subtitle, -1, -1, -1);
         }
     }
 
     public static void announceWinner(CTFTeam winner) {
-        CTFTeam loser = winner.equals(SootCTF.TEAM1) ? SootCTF.TEAM2 : SootCTF.TEAM1;
+        CTFTeam loser = winner.equals(IridiumCTF.TEAM1) ? IridiumCTF.TEAM2 : IridiumCTF.TEAM1;
 
         String title = getTeamChatColour(winner)+""+ChatColor.BOLD + winner.getName() + " wins!";
         String subtitle = getTeamChatColour(winner)+""+ChatColor.BOLD + winner.getScore()
                         + ChatColor.GOLD+""+ChatColor.BOLD + " : "
                         + getTeamChatColour(loser)+""+ChatColor.BOLD + loser.getScore();
-        for(Player player : SootCTF.INSTANCE.getServer().getOnlinePlayers()) {
+        for(Player player : IridiumCTF.INSTANCE.getServer().getOnlinePlayers()) {
             player.sendTitle(title, subtitle, -1, -1, -1);
             player.sendMessage(getTeamChatColour(winner)+""+ChatColor.BOLD + winner.getName() + " wins!");
         }
@@ -67,11 +67,11 @@ public class CTFUtils {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for(Player player : SootCTF.INSTANCE.getServer().getOnlinePlayers()) {
+                for(Player player : IridiumCTF.INSTANCE.getServer().getOnlinePlayers()) {
                     player.sendTitle("", "", -1, -1, -1);
                 }
             }
-        }.runTaskLater(SootCTF.INSTANCE, 80);
+        }.runTaskLater(IridiumCTF.INSTANCE, 80);
     }
 
     public static ChatColor getTeamChatColour(CTFTeam team) {
@@ -114,13 +114,13 @@ public class CTFUtils {
     }
 
     public static void teleportTeamsToWorldSpawn() {
-        SootCTF.TEAM1.teleportWorldSpawn();
-        SootCTF.TEAM2.teleportWorldSpawn();
+        IridiumCTF.TEAM1.teleportWorldSpawn();
+        IridiumCTF.TEAM2.teleportWorldSpawn();
     }
 
     public static void teleportTeamsToFlags() {
-        SootCTF.TEAM1.tpTeamToFlag();
-        SootCTF.TEAM2.tpTeamToFlag();
+        IridiumCTF.TEAM1.tpTeamToFlag();
+        IridiumCTF.TEAM2.tpTeamToFlag();
     }
 
     public static void stop() {
@@ -134,17 +134,17 @@ public class CTFUtils {
             DEATH_LISTENER = null;
         }
 
-        SootCTF.PICKUP_MANAGER.stopSpawning();
+        IridiumCTF.PICKUP_MANAGER.stopSpawning();
 
-        if(SootCTF.TEAM1 != null && SootCTF.TEAM2 != null) {
-            SootCTF.TEAM1.removePickups();
-            SootCTF.TEAM2.removePickups();
+        if(IridiumCTF.TEAM1 != null && IridiumCTF.TEAM2 != null) {
+            IridiumCTF.TEAM1.removePickups();
+            IridiumCTF.TEAM2.removePickups();
 
-            SootCTF.TEAM1.clearPlayers();
-            SootCTF.TEAM2.clearPlayers();
+            IridiumCTF.TEAM1.clearPlayers();
+            IridiumCTF.TEAM2.clearPlayers();
             
-            SootCTF.TEAM1.clearMobs();
-            SootCTF.TEAM2.clearMobs();
+            IridiumCTF.TEAM1.clearMobs();
+            IridiumCTF.TEAM2.clearMobs();
         }
 
         // unregister scoreboard teams
@@ -155,20 +155,20 @@ public class CTFUtils {
 
     public static void initTeams() {
         Block flag1 = CTFConfig.FLAG_ONE != null ? CTFConfig.FLAG_ONE.getBlock() : null;
-        SootCTF.TEAM1 = new CTFTeam(CTFConfig.TEAM_ONE_NAME, flag1);
+        IridiumCTF.TEAM1 = new CTFTeam(CTFConfig.TEAM_ONE_NAME, flag1);
 
         Block flag2 = CTFConfig.FLAG_TWO != null ? CTFConfig.FLAG_TWO.getBlock() : null;
-        SootCTF.TEAM2 = new CTFTeam(CTFConfig.TEAM_TWO_NAME, flag2);
+        IridiumCTF.TEAM2 = new CTFTeam(CTFConfig.TEAM_TWO_NAME, flag2);
 
         // Setup scoreboard teams
-        Team scoreboardTeam1 = SCOREBOARD.registerNewTeam(SootCTF.TEAM1.getName().replace(' ', '_'));
-        SootCTF.TEAM1.setMcTeam(scoreboardTeam1);
-        scoreboardTeam1.setColor(getTeamChatColour(SootCTF.TEAM1));
+        Team scoreboardTeam1 = SCOREBOARD.registerNewTeam(IridiumCTF.TEAM1.getName().replace(' ', '_'));
+        IridiumCTF.TEAM1.setMcTeam(scoreboardTeam1);
+        scoreboardTeam1.setColor(getTeamChatColour(IridiumCTF.TEAM1));
         scoreboardTeam1.setAllowFriendlyFire(false);
 
-        Team scoreboardTeam2 = SCOREBOARD.registerNewTeam(SootCTF.TEAM2.getName().replace(' ', '_'));
-        SootCTF.TEAM2.setMcTeam(scoreboardTeam2);
-        scoreboardTeam2.setColor(getTeamChatColour(SootCTF.TEAM2));
+        Team scoreboardTeam2 = SCOREBOARD.registerNewTeam(IridiumCTF.TEAM2.getName().replace(' ', '_'));
+        IridiumCTF.TEAM2.setMcTeam(scoreboardTeam2);
+        scoreboardTeam2.setColor(getTeamChatColour(IridiumCTF.TEAM2));
         scoreboardTeam2.setAllowFriendlyFire(false);
     }
 

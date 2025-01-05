@@ -9,11 +9,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import dev.skyphi.SootCTF;
+import dev.skyphi.IridiumCTF;
 
 public abstract class Pickup {
     
-    public static final NamespacedKey PICKUP_KEY = new NamespacedKey(SootCTF.INSTANCE, "Pickup");
+    public static final NamespacedKey PICKUP_KEY = new NamespacedKey(IridiumCTF.INSTANCE, "Pickup");
 
     protected ItemStack itemStack, actualItem;
     protected String name, description;
