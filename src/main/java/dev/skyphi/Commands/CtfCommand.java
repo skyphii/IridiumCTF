@@ -58,16 +58,19 @@ public class CtfCommand implements CommandExecutor {
                 IridiumCTF.TEAM2.tpTeamToFlag();
                 IridiumCTF.PICKUP_MANAGER.startSpawning();
                 CTFUtils.broadcast("Game started!", true);
-            }else if(args[0].equalsIgnoreCase("stop")) {
+            } else if (args[0].equalsIgnoreCase("stop")) {
                 // stop game
                 IridiumCTF.PICKUP_MANAGER.stopSpawning();
                 CTFUtils.teleportTeamsToWorldSpawn();
                 CTFUtils.stop();
                 CTFUtils.broadcast("Game stopped!", true);
-            }else if(args[0].equalsIgnoreCase("spawner")) {
+            } else if (args[0].equalsIgnoreCase("spawner")) {
                 // setup item spawner
                 new SetupListener(player, SetupType.SPAWNER);
                 player.sendMessage(ChatColor.AQUA + "Click a block to set a new item spawner.");
+            } else if (args[0].equalsIgnoreCase("removespawner") || args[0].equalsIgnoreCase("rspawner")) {
+                new SetupListener(player, SetupType.REMOVE_SPAWNER);
+                player.sendMessage(ChatColor.AQUA + "Click a block to remove item spawner.");
             }
 
             return true;

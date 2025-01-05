@@ -7,6 +7,7 @@ import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
@@ -125,6 +126,10 @@ public class PickupManager implements Listener {
     public void addSpawner(ItemSpawner spawner) {
         spawners.add(spawner);
         saveSpawners();
+    }
+
+    public boolean removeSpawner(Block block) {
+        return spawners.removeIf(spawner -> spawner.getBlock().getLocation().equals(block.getLocation()));
     }
 
     public void setItemSpawnRate(int seconds) {
