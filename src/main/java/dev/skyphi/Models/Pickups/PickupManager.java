@@ -26,6 +26,7 @@ import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Pickups.Active.GoatRam;
 import dev.skyphi.Models.Pickups.Active.GoldenArrow;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
 import dev.skyphi.Models.Pickups.Active.SpeedBoost;
@@ -39,10 +40,18 @@ public class PickupManager implements Listener {
     
     private static final int INITIAL_DELAY = 0; // in seconds
     private static int SPAWN_PERIOD = 20;       // in seconds
-    private static final List<Class<? extends Pickup>> PICKUPS = Arrays.asList(
-        JumpBoost.class, ThrowTnt.class, SpeedBoost.class,
-        GoldenApple.class, SlownessArrows.class, Freezeball.class, GoldenArrow.class, MobEgg.class
+
+    private static final List<Class<? extends Pickup>> PICKUPS_COMMON = Arrays.asList(
+        JumpBoost.class, ThrowTnt.class, SpeedBoost.class, GoldenApple.class
+    );
+
+    private static final List<Class<? extends Pickup>> PICKUPS_RARE = Arrays.asList(
+        SlownessArrows.class, Freezeball.class
         // Barricade.class // currently broken, don't use
+    );
+
+    private static final List<Class<? extends Pickup>> PICKUPS_MYTHIC = Arrays.asList(
+        GoldenArrow.class, MobEgg.class, GoatRam.class
     );
 
     private BukkitRunnable spawnRunnable, particleRunnable;
@@ -143,7 +152,15 @@ public class PickupManager implements Listener {
     }
 
     private Pickup getRandomPickup() {
-        Class<? extends Pickup> pickupClass = PICKUPS.get((int)(Math.random() * PICKUPS.size()));
+        Class<? extends Pickup> pickupClass = null;
+
+        int roll = (int)(Math.random() * 100);
+        if (roll <= 10)
+            pickupClass = PICKUPS_MYTHIC.get((int)(Math.random() * PICKUPS_MYTHIC.size()));
+        else if (roll <= 40)
+            pickupClass = PICKUPS_RARE.get((int)(Math.random() * PICKUPS_RARE.size()));
+        else
+            pickupClass = PICKUPS_COMMON.get((int)(Math.random() * PICKUPS_COMMON.size()));
 
         Pickup pickup = null;
         try {

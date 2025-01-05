@@ -17,7 +17,7 @@ public class JumpBoost extends ActivePickup {
     private static final Vector JUMP = new Vector(0, 1.2, 0);
 
     public JumpBoost() {
-        name = ChatColor.AQUA+""+ChatColor.BOLD+"Jump!";
+        name = ChatColor.AQUA+""+ChatColor.BOLD+"Super Jump!";
         description = ChatColor.AQUA+"Right click to jump high! You will not take fall damage.";
         itemStack = new ItemStack(Material.FEATHER);
         key = new NamespacedKey(IridiumCTF.INSTANCE, "JumpBoost");
