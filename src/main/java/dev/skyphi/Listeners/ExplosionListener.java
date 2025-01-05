@@ -13,14 +13,14 @@ public class ExplosionListener implements Listener {
     
     @EventHandler
     public void on(EntityExplodeEvent event) {
-        if(event.getEntityType() != EntityType.PRIMED_TNT && event.getEntityType() != EntityType.CREEPER) return;
+        if(event.getEntityType() != EntityType.TNT && event.getEntityType() != EntityType.CREEPER) return;
         
         // clear blocks so none are destroyed
         event.blockList().clear();
 
         // prevent items being blown away - Pickups have no gravity so they would float off into the sunset
         List<Entity> items = event.getEntity().getNearbyEntities(10, 10, 10);
-        items.removeIf(e -> e.getType() != EntityType.DROPPED_ITEM);
+        items.removeIf(e -> e.getType() != EntityType.ITEM);
         
         for(Entity e : items) {
             e.setVelocity(new Vector());

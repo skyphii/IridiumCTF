@@ -41,7 +41,7 @@ public class GoldenArrow extends ActivePickup {
         projectile.setVelocity(dir.multiply(4));
 
         owner.getWorld().playSound(owner.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
-        owner.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, owner.getLocation(), 4);
+        owner.getWorld().spawnParticle(Particle.FIREWORK, owner.getLocation(), 4);
     }
 
 }

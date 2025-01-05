@@ -52,7 +52,7 @@ public class ProjectileListener implements Listener {
 
             // add helmet to avoid burning in sun
             ItemStack helmet = MobEgg.HELMET;
-            helmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+            helmet.addEnchantment(Enchantment.PROTECTION, 1);
             ItemMeta meta = helmet.getItemMeta();
             meta.setUnbreakable(true);
             helmet.setItemMeta(meta);

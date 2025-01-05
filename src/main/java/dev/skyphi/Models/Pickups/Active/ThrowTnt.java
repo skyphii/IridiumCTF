@@ -33,7 +33,7 @@ public class ThrowTnt extends ActivePickup {
         Vector dir = spawnLoc.getDirection();
         spawnLoc.add(dir);
 
-        TNTPrimed tnt = (TNTPrimed)owner.getWorld().spawnEntity(spawnLoc, EntityType.PRIMED_TNT);
+        TNTPrimed tnt = (TNTPrimed)owner.getWorld().spawnEntity(spawnLoc, EntityType.TNT);
         tnt.setVelocity(dir.multiply(SPEED));
         tnt.setFuseTicks(FUSE_TICKS);
         tnt.setCustomName(CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(owner).getTeam())+""+ChatColor.BOLD + owner.getName() + "'s TNT");

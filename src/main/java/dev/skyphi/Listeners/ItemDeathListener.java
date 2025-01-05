@@ -9,7 +9,7 @@ public class ItemDeathListener implements Listener {
     
     @EventHandler
     public void on(EntityDamageByEntityEvent event) {
-        if(event.getEntityType() != EntityType.DROPPED_ITEM) return;
+        if(event.getEntityType() != EntityType.ITEM) return;
 
         event.setCancelled(true);
     }
