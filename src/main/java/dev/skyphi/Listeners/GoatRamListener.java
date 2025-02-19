@@ -15,7 +15,7 @@ public class GoatRamListener implements Listener {
     
     @EventHandler
     public void on(EntityPotionEffectEvent event) {
-        if (event.getNewEffect().getType() != PotionEffectType.OOZING || event.getEntityType() == EntityType.GOAT) return;
+        if (event.getNewEffect() == null || event.getNewEffect().getType() != PotionEffectType.OOZING || event.getEntityType() == EntityType.GOAT) return;
         event.setCancelled(true);
 
         Entity entity = event.getEntity();
