@@ -33,7 +33,7 @@ public class CtfCommand implements CommandExecutor {
         }
         Player player = (Player)sender;
 
-        if(!player.hasPermission("sootctf.sootctf")) {
+        if(!player.hasPermission("iridiumctf.ctf")) {
             player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             return true;
         }
