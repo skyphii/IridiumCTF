@@ -1,6 +1,6 @@
 name: IridiumCTF
 author: skyphi
-version: 1.4
+version: 1.4.1
 api-version: 1.21
 main: dev.skyphi.IridiumCTF
 depend: [ProtocolLib]
