@@ -20,6 +20,7 @@ import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Statistics;
 import dev.skyphi.Models.Pickups.Simple.Arrows;
 
 public class DeathListener implements Listener {
@@ -46,6 +47,17 @@ public class DeathListener implements Listener {
             }
         }.runTaskLater(IridiumCTF.INSTANCE, 80);
         announceDeath(ctfp, event);
+        
+        Entity killer = getDamager((EntityDamageByEntityEvent)event);
+
+        // kill/death stats
+        Statistics.increment("deaths", player.getUniqueId());
+        if (killer instanceof Player) {
+            Statistics.increment("kills", ((Player) killer).getUniqueId());
+            if (CTFUtils.getCTFPlayer((Player) killer).hasFlag()) {
+                Statistics.increment("kills_as_carrier", ((Player) killer).getUniqueId());
+            }
+        }
 
         // replace flag
         if(ctfp.hasFlag()) {
@@ -53,6 +65,12 @@ public class DeathListener implements Listener {
             ctfp.getEnemyTeam().getFlag().setType(CTFConfig.FLAG_TYPE);
             ctfp.getTeam().announce(ChatColor.RED, "The enemy flag was returned to their base!");
             ctfp.getEnemyTeam().announce(ChatColor.GREEN, "Your flag was returned to base!");
+
+            // flag carrier kill/death stats
+            Statistics.increment("flags_dropped", player.getUniqueId());
+            if (killer instanceof Player) {
+                Statistics.increment("flags_recovered", ((Player)killer).getUniqueId());
+            }
         }
 
         ctfp.removePickups();
@@ -71,16 +89,19 @@ public class DeathListener implements Listener {
         }.runTaskLater(IridiumCTF.INSTANCE, 20*CTFConfig.RESPAWN_TIMER);
     }
 
+    private Entity getDamager(EntityDamageByEntityEvent event) {
+        Entity damager = event.getDamager();
+        if(damager instanceof Projectile) {
+            ProjectileSource shooter = ((Projectile)damager).getShooter();
+            if(shooter instanceof Entity) damager = (Entity)shooter;
+        }
+        return damager;
+    }
+
     private void announceDeath(CTFPlayer deadPlayer, EntityDamageEvent edEvent) {
-        EntityDamageByEntityEvent edbeEvent = null;
         String nameKiller = "????";
         if(edEvent instanceof EntityDamageByEntityEvent) {
-            edbeEvent = (EntityDamageByEntityEvent)edEvent;
-            Entity damager = edbeEvent.getDamager();
-            if(damager instanceof Projectile) {
-                ProjectileSource shooter = ((Projectile)damager).getShooter();
-                if(shooter instanceof Entity) damager = (Entity)shooter;
-            }
+            Entity damager = getDamager((EntityDamageByEntityEvent)edEvent);
             ChatColor colour = ChatColor.GRAY;
             CTFPlayer ctfpDamager = (damager instanceof Player) ? CTFUtils.getCTFPlayer((Player)damager) : null;
             if(ctfpDamager != null) colour = CTFUtils.getTeamChatColour(ctfpDamager.getTeam());

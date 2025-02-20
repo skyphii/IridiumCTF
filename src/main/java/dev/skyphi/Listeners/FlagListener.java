@@ -11,6 +11,7 @@ import dev.skyphi.CTFUtils;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
+import dev.skyphi.Models.Statistics;
 
 public class FlagListener implements Listener {
     
@@ -37,7 +38,7 @@ public class FlagListener implements Listener {
                 // announce flag picked up
                 team.announce(ChatColor.AQUA, ChatColor.BOLD+ctfp.getPlayerName()+ChatColor.GREEN + " picked up the enemy flag!");
                 enemyTeam.announce(ChatColor.RED, "Your flag has been picked up by "+ChatColor.DARK_RED+""+ChatColor.BOLD+ctfp.getPlayerName());
-            
+
                 //TODO particles?
             }
         }else {                 // has flag - check if player clicked team flag
@@ -54,7 +55,9 @@ public class FlagListener implements Listener {
                 // announce flag captured
                 team.announce(ChatColor.AQUA, ChatColor.BOLD+ctfp.getPlayerName()+ChatColor.GREEN + " captured the enemy flag!");
                 enemyTeam.announce(ChatColor.RED, "Your flag was captured by "+ChatColor.DARK_RED+""+ChatColor.BOLD+ctfp.getPlayerName());
-            
+
+                Statistics.increment("flag_captures", ctfp.getUniqueId());
+
                 //TODO particles?
                 //TODO fireworks in sky above flag?
             }

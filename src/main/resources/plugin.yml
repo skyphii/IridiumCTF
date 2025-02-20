@@ -4,6 +4,7 @@ version: 1.4
 api-version: 1.21
 main: dev.skyphi.IridiumCTF
 depend: [ProtocolLib]
+softdepend: [IridiumEvents]
 commands:
   iridiumctf:
     description: Main IridiumCTF command

@@ -17,6 +17,7 @@ import dev.skyphi.Listeners.FlagListener;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
+import dev.skyphi.Models.Statistics;
 
 // a class that lets me be lazy with organizing code (so I can rush this out faster and make it better later)
 public class CTFUtils {
@@ -72,6 +73,17 @@ public class CTFUtils {
                 }
             }
         }.runTaskLater(IridiumCTF.INSTANCE, 80);
+    }
+
+    public static void addGameOverStats(CTFTeam winner) {
+        CTFTeam loser = null;
+        for (CTFPlayer player : winner.getPlayers().values()) {
+            if (loser == null) loser = player.getEnemyTeam();
+            Statistics.increment("wins", player.getUniqueId());
+        }
+        for (CTFPlayer player : loser.getPlayers().values()) {
+            Statistics.increment("losses", player.getUniqueId());
+        }
     }
 
     public static ChatColor getTeamChatColour(CTFTeam team) {

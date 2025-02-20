@@ -51,12 +51,14 @@ public class CTFTeam {
         return player;
     }
 
+    public HashMap<UUID, CTFPlayer> getPlayers() { return playerList; }
     public int getPlayerCount() { return playerList.size(); }
 
     public int getScore() { return score; }
     public void addPoint(CTFPlayer flagCarrier) {
         if(++score == CTFConfig.FLAGS_TO_WIN) {
             CTFUtils.announceWinner(this);
+            CTFUtils.addGameOverStats(this);
             CTFUtils.teleportTeamsToWorldSpawn();
             CTFUtils.stop();
         }else {

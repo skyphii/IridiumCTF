@@ -2,8 +2,8 @@ package dev.skyphi;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import dev.skyphi.Commands.ScoreCommand;
 import dev.skyphi.Commands.CtfCommand;
+import dev.skyphi.Commands.ScoreCommand;
 import dev.skyphi.Listeners.ExplosionListener;
 import dev.skyphi.Listeners.FallListener;
 import dev.skyphi.Listeners.FreezeballListener;
@@ -23,10 +23,16 @@ public class IridiumCTF extends JavaPlugin {
     public static IridiumCTF INSTANCE;
     public static CTFTeam TEAM1, TEAM2;
     public static PickupManager PICKUP_MANAGER = new PickupManager();
+    public static IridiumAPI API;
 
     @Override
     public void onEnable() {
         INSTANCE = this;
+
+        API = getServer().getServicesManager().load(IridiumAPI.class);
+        if (API == null) {
+            getLogger().warning("IridiumAPI not found! Statistics will not be tracked. Make sure the IridiumEvents plugin is installed.");
+        }
 
         CTFConfig.load();
         

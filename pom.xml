@@ -26,6 +26,11 @@
       <version>1.21.1-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>dev.skyphi</groupId>
+      <artifactId>iridiumevents</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   
 </project>
