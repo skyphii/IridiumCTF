@@ -34,6 +34,7 @@ public class GoldenArrowListener implements Listener {
         hitEntity.damage(1000, shooter);
 
         if (hitEntity instanceof Player) {
+            event.getEntity().remove();
             final Player hitPlayer = (Player)hitEntity;
 
             CTFPlayer ctfShooter = CTFUtils.getCTFPlayer(shooter);
