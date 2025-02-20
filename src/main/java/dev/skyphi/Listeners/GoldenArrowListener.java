@@ -12,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 import dev.skyphi.CTFUtils;
+import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Statistics;
 
 public class GoldenArrowListener implements Listener {
     
@@ -33,9 +35,12 @@ public class GoldenArrowListener implements Listener {
 
         if (hitEntity instanceof Player) {
             final Player hitPlayer = (Player)hitEntity;
+
+            CTFPlayer ctfShooter = CTFUtils.getCTFPlayer(shooter);
+            CTFPlayer ctfHit = CTFUtils.getCTFPlayer(hitPlayer);
             
-            ChatColor shooterColour = CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(shooter).getTeam());
-            ChatColor deadColour = CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(hitPlayer).getTeam());
+            ChatColor shooterColour = CTFUtils.getTeamChatColour(ctfShooter.getTeam());
+            ChatColor deadColour = CTFUtils.getTeamChatColour(ctfHit.getTeam());
 
             CTFUtils.broadcast(shooterColour+""+ChatColor.BOLD+shooter.getName() + ChatColor.AQUA+" one-shot "
                             + deadColour+""+ChatColor.BOLD+hitPlayer.getName()
@@ -43,6 +48,9 @@ public class GoldenArrowListener implements Listener {
                             + ChatColor.GOLD+ChatColor.BOLD + "Golden Arrow"
                             + ChatColor.AQUA+"!"
                             , false);
+            
+            // golden arrow stats
+            Statistics.increment("golden_snipes", ctfShooter.getUniqueId());
         } else if (hitEntity instanceof Guardian) {
             shooter.setNoDamageTicks(0);
             DamageSource ds = DamageSource.builder(DamageType.THORNS)
