@@ -37,6 +37,7 @@ public class ThrowTnt extends ActivePickup {
         tnt.setVelocity(dir.multiply(SPEED));
         tnt.setFuseTicks(FUSE_TICKS);
         tnt.setCustomName(CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(owner).getTeam())+""+ChatColor.BOLD + owner.getName() + "'s TNT");
+        tnt.setSource(owner);
 
         owner.getWorld().playSound(spawnLoc, Sound.ENTITY_TNT_PRIMED, 1, 1);
     }

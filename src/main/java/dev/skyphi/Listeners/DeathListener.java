@@ -9,6 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -34,6 +35,7 @@ public class DeathListener implements Listener {
         if(player.getHealth() - event.getFinalDamage() > 0) return;
 
         event.setCancelled(true);
+
         GameMode gm = player.getGameMode();
         player.setGameMode(GameMode.SPECTATOR);
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f);
@@ -46,16 +48,21 @@ public class DeathListener implements Listener {
                 player.sendTitle("", "", -1, -1, -1);
             }
         }.runTaskLater(IridiumCTF.INSTANCE, 80);
+
         announceDeath(ctfp, event);
-        
-        Entity killer = getDamager((EntityDamageByEntityEvent)event);
 
         // kill/death stats
         Statistics.increment("deaths", player.getUniqueId());
-        if (killer instanceof Player) {
-            Statistics.increment("kills", ((Player) killer).getUniqueId());
-            if (CTFUtils.getCTFPlayer((Player) killer).hasFlag()) {
-                Statistics.increment("kills_as_carrier", ((Player) killer).getUniqueId());
+        if (event instanceof EntityDamageByEntityEvent) {
+            Entity killer = getDamager((EntityDamageByEntityEvent)event);
+
+            if (killer instanceof Player) {
+                Statistics.increment("kills", ((Player) killer).getUniqueId());
+
+                // if carrying flag
+                if (CTFUtils.getCTFPlayer((Player) killer).hasFlag()) {
+                    Statistics.increment("kills_as_carrier", ((Player) killer).getUniqueId());
+                }
             }
         }
 
@@ -68,8 +75,11 @@ public class DeathListener implements Listener {
 
             // flag carrier kill/death stats
             Statistics.increment("flags_dropped", player.getUniqueId());
-            if (killer instanceof Player) {
-                Statistics.increment("flags_recovered", ((Player)killer).getUniqueId());
+            if (event instanceof EntityDamageByEntityEvent) {
+                Entity killer = getDamager((EntityDamageByEntityEvent)event);
+                if (killer instanceof Player) {
+                    Statistics.increment("flags_recovered", ((Player)killer).getUniqueId());
+                }
             }
         }
 
@@ -94,6 +104,8 @@ public class DeathListener implements Listener {
         if(damager instanceof Projectile) {
             ProjectileSource shooter = ((Projectile)damager).getShooter();
             if(shooter instanceof Entity) damager = (Entity)shooter;
+        } else if (damager instanceof TNTPrimed) {
+            damager = ((TNTPrimed)damager).getSource();
         }
         return damager;
     }
@@ -127,6 +139,9 @@ public class DeathListener implements Listener {
                 break;
             case THORNS:
                 deathMsg = nameDead + ChatColor.DARK_AQUA + " was killed trying to hurt " + ChatColor.BOLD + "Guardian";
+                break;
+            case DRYOUT:    // unused damage source - using as a placeholder for GoatRam damage
+                deathMsg = nameDead + ChatColor.GRAY + " was killed by an " + ChatColor.BOLD + "angry goat.";
                 break;
         }
 
