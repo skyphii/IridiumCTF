@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Statistics;
 
 public class FreezeballListener implements Listener {
 
@@ -28,6 +29,9 @@ public class FreezeballListener implements Listener {
             CTFPlayer ctfp = CTFUtils.getCTFPlayer((Player)hitEntity);
             CTFPlayer shooterCtfp = CTFUtils.getCTFPlayer((Player)event.getEntity().getShooter());
             if(ctfp.getTeam().equals(shooterCtfp.getTeam())) return;
+            
+            // freezeball stats
+            Statistics.increment("freezeballs_hit", shooterCtfp.getUniqueId());
         }
 
         final BukkitRunnable hurtRunnable = new BukkitRunnable() {
