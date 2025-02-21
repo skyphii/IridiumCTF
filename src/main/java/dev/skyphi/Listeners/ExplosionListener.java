@@ -13,7 +13,7 @@ public class ExplosionListener implements Listener {
     
     @EventHandler
     public void on(EntityExplodeEvent event) {
-        if(event.getEntityType() != EntityType.TNT && event.getEntityType() != EntityType.CREEPER) return;
+        if(event.getEntityType() != EntityType.TNT && event.getEntityType() != EntityType.CREEPER && event.getEntityType() != EntityType.WIND_CHARGE) return;
         
         // clear blocks so none are destroyed
         event.blockList().clear();
