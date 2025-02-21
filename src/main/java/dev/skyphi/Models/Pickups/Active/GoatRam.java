@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.Pickups.ActivePickup;
 
@@ -38,6 +39,10 @@ public class GoatRam extends ActivePickup {
     @Override
     public void activate() {
         Goat goat = (Goat)owner.getWorld().spawnEntity(owner.getLocation().add(0, 2, 0), EntityType.GOAT);
+        goat.setInvulnerable(true);
+        goat.setCustomName(CTFUtils.getTeamChatColour(CTFUtils.getCTFPlayer(owner).getTeam())+""+ChatColor.BOLD + owner.getName() + "'s GOAT");
+        goat.setCustomNameVisible(true);
+
         AreaEffectCloud cloud = (AreaEffectCloud)owner.getWorld().spawnEntity(goat.getLocation(), EntityType.AREA_EFFECT_CLOUD);
         cloud.setBasePotionType(PotionType.OOZING);
         cloud.setWaitTime(0);
