@@ -1,6 +1,7 @@
 package dev.skyphi.Commands;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,8 +10,10 @@ import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.util.StringUtil;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
@@ -23,7 +26,7 @@ import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
 import dev.skyphi.Models.Pair;
 
-public class CtfCommand implements CommandExecutor {
+public class CtfCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
@@ -214,6 +217,26 @@ public class CtfCommand implements CommandExecutor {
 
         team1.notifyPlayers();
         team2.notifyPlayers();
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String cmdLbl, String[] args) {
+        final List<String> completions = new ArrayList<>();
+        if (args.length == 1) StringUtil.copyPartialMatches(args[0], List.of("start", "stop", "spawner", "removespawner", "flag", "swap", "win", "spawnrate"), completions);
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("flag")) {
+                Collection<String> next = List.of("1", "2");
+                StringUtil.copyPartialMatches(args[1], next, completions);
+            } else if (args[0].equalsIgnoreCase("swap")) {
+                Collection<String> next = IridiumCTF.INSTANCE.getServer().getOnlinePlayers().stream().map(Player::getName).toList();
+                StringUtil.copyPartialMatches(args[1], next, completions);
+            } else if (args[0].equalsIgnoreCase("win")) {
+                StringUtil.copyPartialMatches(args[1], List.of("3", "5", "10"), completions);
+            } else if (args[0].equalsIgnoreCase("spawnrate")) {
+                StringUtil.copyPartialMatches(args[1], List.of("10", "20", "30"), completions);
+            }
+        }
+        return completions;
     }
 
 }
