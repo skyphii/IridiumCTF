@@ -17,7 +17,6 @@ import dev.skyphi.Listeners.FlagListener;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
-import dev.skyphi.Models.Statistics;
 
 // a class that lets me be lazy with organizing code (so I can rush this out faster and make it better later)
 public class CTFUtils {

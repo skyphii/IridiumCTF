@@ -19,9 +19,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
+import dev.skyphi.Statistics;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
-import dev.skyphi.Models.Statistics;
 import dev.skyphi.Models.Pickups.Simple.Arrows;
 
 public class DeathListener implements Listener {

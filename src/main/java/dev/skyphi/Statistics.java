@@ -1,8 +1,6 @@
-package dev.skyphi.Models;
+package dev.skyphi;
 
 import java.util.UUID;
-
-import dev.skyphi.IridiumCTF;
 
 public class Statistics {
 

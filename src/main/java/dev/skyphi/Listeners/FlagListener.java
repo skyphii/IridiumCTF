@@ -8,10 +8,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import dev.skyphi.CTFUtils;
+import dev.skyphi.Statistics;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
 import dev.skyphi.Models.CTFTeam;
-import dev.skyphi.Models.Statistics;
 
 public class FlagListener implements Listener {
     

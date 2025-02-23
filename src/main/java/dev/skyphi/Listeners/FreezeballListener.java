@@ -10,8 +10,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
+import dev.skyphi.Statistics;
 import dev.skyphi.Models.CTFPlayer;
-import dev.skyphi.Models.Statistics;
 
 public class FreezeballListener implements Listener {
 

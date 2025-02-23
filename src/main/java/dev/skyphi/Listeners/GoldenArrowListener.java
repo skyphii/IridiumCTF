@@ -12,8 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 import dev.skyphi.CTFUtils;
+import dev.skyphi.Statistics;
 import dev.skyphi.Models.CTFPlayer;
-import dev.skyphi.Models.Statistics;
 
 public class GoldenArrowListener implements Listener {
     
