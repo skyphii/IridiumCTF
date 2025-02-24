@@ -44,11 +44,11 @@ public class PickupManager implements Listener {
     private static int SPAWN_PERIOD = 20;       // in seconds
 
     private static final List<Class<? extends Pickup>> PICKUPS_COMMON = Arrays.asList(
-        JumpBoost.class, ThrowTnt.class, SpeedBoost.class, GoldenApple.class, WindCharges.class
+        JumpBoost.class, ThrowTnt.class, SpeedBoost.class, GoldenApple.class
     );
 
     private static final List<Class<? extends Pickup>> PICKUPS_RARE = Arrays.asList(
-        SlownessArrows.class, Freezeball.class
+        SlownessArrows.class, Freezeball.class, WindCharges.class
         // Barricade.class // currently broken, don't use
     );
 
