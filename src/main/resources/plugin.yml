@@ -14,3 +14,6 @@ commands:
   score:
     description: Get the current game's score
     usage: /<command>
+  powerup:
+    description: Give yourself a powerup (debugging cmd)
+    usage: /<command> <powerup>

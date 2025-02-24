@@ -152,6 +152,25 @@ public class PickupManager implements Listener {
         for(int i = 0; i < activePickup.getActualItem().getAmount(); i++) this.activePickups.add(activePickup);
     }
 
+    public List<Class<? extends Pickup>> getAllPickupClasses() {
+        ArrayList<Class<? extends Pickup>> list = new ArrayList<Class<? extends Pickup>>();
+        list.addAll(PICKUPS_COMMON);
+        list.addAll(PICKUPS_RARE);
+        list.addAll(PICKUPS_MYTHIC);
+        return list;
+    }
+
+    public Pickup createPickup(Class<? extends Pickup> pickupClass) {
+        Pickup pickup = null;
+        try {
+            pickup = pickupClass.getDeclaredConstructor().newInstance();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return pickup;
+    }
+
     private Pickup getRandomPickup() {
         Class<? extends Pickup> pickupClass = null;
 
@@ -163,12 +182,7 @@ public class PickupManager implements Listener {
         else
             pickupClass = PICKUPS_COMMON.get((int)(Math.random() * PICKUPS_COMMON.size()));
 
-        Pickup pickup = null;
-        try {
-            pickup = pickupClass.getDeclaredConstructor().newInstance();
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+        Pickup pickup = createPickup(pickupClass);
         return pickup;
     }
 

@@ -3,6 +3,7 @@ package dev.skyphi;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import dev.skyphi.Commands.CtfCommand;
+import dev.skyphi.Commands.PowerupCmd;
 import dev.skyphi.Commands.ScoreCommand;
 import dev.skyphi.Listeners.ExplosionListener;
 import dev.skyphi.Listeners.FallListener;
@@ -41,6 +42,7 @@ public class IridiumCTF extends JavaPlugin {
 
         this.getCommand("iridiumctf").setExecutor(new CtfCommand());
         this.getCommand("score").setExecutor(new ScoreCommand());
+        this.getCommand("powerup").setExecutor(new PowerupCmd());
 
         getServer().getPluginManager().registerEvents(new FallListener(), INSTANCE);
         getServer().getPluginManager().registerEvents(new FreezeballListener(), INSTANCE);
