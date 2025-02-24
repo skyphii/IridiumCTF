@@ -7,6 +7,7 @@ import dev.skyphi.Commands.PowerupCmd;
 import dev.skyphi.Commands.ScoreCommand;
 import dev.skyphi.Listeners.ExplosionListener;
 import dev.skyphi.Listeners.FallListener;
+import dev.skyphi.Listeners.FireworkBarrageListener;
 import dev.skyphi.Listeners.FreezeballListener;
 import dev.skyphi.Listeners.GoatRamListener;
 import dev.skyphi.Listeners.GoldenArrowListener;
@@ -54,6 +55,7 @@ public class IridiumCTF extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MobDeathListener(), INSTANCE);
         getServer().getPluginManager().registerEvents(new MobSpawnListener(), INSTANCE);
         getServer().getPluginManager().registerEvents(new GoatRamListener(), INSTANCE);
+        getServer().getPluginManager().registerEvents(new FireworkBarrageListener(), INSTANCE);
     }
 
     @Override

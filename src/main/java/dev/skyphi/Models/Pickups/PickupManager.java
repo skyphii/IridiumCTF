@@ -26,6 +26,7 @@ import dev.skyphi.CTFUtils;
 import dev.skyphi.IridiumCTF;
 import dev.skyphi.Models.CTFConfig;
 import dev.skyphi.Models.CTFPlayer;
+import dev.skyphi.Models.Pickups.Active.FireworkBarrage;
 import dev.skyphi.Models.Pickups.Active.GoatRam;
 import dev.skyphi.Models.Pickups.Active.GoldenArrow;
 import dev.skyphi.Models.Pickups.Active.JumpBoost;
@@ -52,7 +53,7 @@ public class PickupManager implements Listener {
     );
 
     private static final List<Class<? extends Pickup>> PICKUPS_MYTHIC = Arrays.asList(
-        GoldenArrow.class, MobEgg.class, GoatRam.class
+        GoldenArrow.class, MobEgg.class, GoatRam.class, FireworkBarrage.class
     );
 
     private BukkitRunnable spawnRunnable, particleRunnable;
